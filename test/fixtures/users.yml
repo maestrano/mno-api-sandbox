@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  email: MyString
+  name: MyString
+  surname: MyString
+  free_trial_end_at: 2014-05-18 21:21:53
+  geo_country_code: MyString
+  uid: MyString
+  sso_session: MyString
+
+two:
+  email: MyString
+  name: MyString
+  surname: MyString
+  free_trial_end_at: 2014-05-18 21:21:53
+  geo_country_code: MyString
+  uid: MyString
+  sso_session: MyString

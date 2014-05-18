@@ -1,0 +1,31 @@
+%h1 Listing users
+
+%table
+  %tr
+    %th Email
+    %th Name
+    %th Surname
+    %th Free trial end at
+    %th Geo country code
+    %th Uid
+    %th Sso session
+    %th
+    %th
+    %th
+
+  - @users.each do |user|
+    %tr
+      %td= user.email
+      %td= user.name
+      %td= user.surname
+      %td= user.free_trial_end_at
+      %td= user.geo_country_code
+      %td= user.uid
+      %td= user.sso_session
+      %td= link_to 'Show', user
+      %td= link_to 'Edit', edit_user_path(user)
+      %td= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New User', new_user_path
