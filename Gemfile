@@ -5,14 +5,11 @@ gem 'jquery-rails'
 gem 'haml-rails', '0.3.4'
 gem 'money'
 gem 'countries'
-
-
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 gem 'sqlite3'
 
+
+# Javascript runtime environment
+gem "therubyracer", '>= 0.12.0', :require => 'v8'
 
 # Gems used only for assets and not required
 # in production environments by default.
