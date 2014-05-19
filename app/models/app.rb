@@ -9,5 +9,19 @@
 #
 
 class App < ActiveRecord::Base
-  attr_accessible :api_token
+  
+  #============================================
+  # Callbacks
+  #============================================
+  after_create :generate_api_token
+  
+  private
+    # Intialize the api_token
+    def generate_api_token
+      if self.id && !self.api_token
+        self.api_token = "#{(('a'..'z').to_a + (0..9).to_a).shuffle.join}#{self.id}"
+        App.update_all({api_token:self.uid}, {id: self.id})
+      end
+      return true
+    end
 end
