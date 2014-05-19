@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140519055812) do
+ActiveRecord::Schema.define(:version => 20140519060604) do
 
   create_table "apps", :force => true do |t|
     t.string   "api_token"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20140519055812) do
     t.string   "uid"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "app_id"
   end
 
   create_table "users", :force => true do |t|
