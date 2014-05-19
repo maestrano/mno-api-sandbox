@@ -15,6 +15,12 @@ class App < ActiveRecord::Base
   #============================================
   after_create :generate_api_token
   
+  #============================================
+  # Associations
+  #============================================
+  has_many :groups
+  has_many :bills, through: :groups
+  
   private
     # Intialize the api_token
     def generate_api_token
