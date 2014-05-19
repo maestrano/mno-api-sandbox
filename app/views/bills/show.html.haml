@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Uid:
+  = @bill.uid
+%p
+  %b Description:
+  = @bill.description
+%p
+  %b Group:
+  = @bill.group_id
+%p
+  %b Price cents:
+  = @bill.price_cents
+%p
+  %b Currency:
+  = @bill.currency
+%p
+  %b Units:
+  = @bill.units
+%p
+  %b Period start:
+  = @bill.period_start
+%p
+  %b Period end:
+  = @bill.period_end
+
+= link_to 'Edit', edit_bill_path(@bill)
+\|
+= link_to 'Back', bills_path

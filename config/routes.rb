@@ -1,4 +1,6 @@
 MnoApiSandbox::Application.routes.draw do
+  resources :bills
+
   resources :groups
 
   resources :users

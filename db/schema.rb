@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140519050729) do
+ActiveRecord::Schema.define(:version => 20140519053901) do
+
+  create_table "bills", :force => true do |t|
+    t.string   "uid"
+    t.string   "description"
+    t.integer  "group_id"
+    t.integer  "price_cents"
+    t.string   "currency"
+    t.decimal  "units",        :precision => 10, :scale => 2
+    t.datetime "period_start"
+    t.datetime "period_end"
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+  end
 
   create_table "group_user_rels", :force => true do |t|
     t.integer  "group_id"
