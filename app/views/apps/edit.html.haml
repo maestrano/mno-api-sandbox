@@ -1,7 +1,13 @@
-%h1 Editing app
+.row
+  .align-center
+    %b Edit your app name
+  %hr
+  .span10.offset1
+    %div{style: "width: 305px; margin:auto;"}
+      = render 'form'
+  .clearfix
+  %hr
 
-= render 'form'
-
-= link_to 'Show', @app
-\|
-= link_to 'Back', apps_path
+  = link_to 'Show', @app
+  \|
+  = link_to 'Back', apps_path

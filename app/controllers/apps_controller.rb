@@ -7,6 +7,7 @@ class AppsController < ApplicationController
   # GET /apps
   # GET /apps.json
   def index
+    @app = App.new
     @apps = App.all
 
     respond_to do |format|
@@ -53,7 +54,10 @@ class AppsController < ApplicationController
         format.html { redirect_to @app, notice: 'App was successfully created.' }
         format.json { render json: @app, status: :created, location: @app }
       else
-        format.html { render action: "new" }
+        format.html { 
+          @apps = App.all
+          render action: "index" 
+        }
         format.json { render json: @app.errors, status: :unprocessable_entity }
       end
     end

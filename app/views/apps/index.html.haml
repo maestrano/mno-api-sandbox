@@ -1,21 +1,27 @@
 .row
+  %hr
   .span10.offset1
-    %h4 Listing apps
+    %div{style: "width: 305px; margin:auto;"}
+      = render 'form'
+  .clearfix
+  %hr
 
-    %table
+.row
+  .span10.offset1
+    
+    %h5 Below is a list of all applications already created
+    .spacer1
+
+    %table.table.table-striped.table-bordered
       %tr
-        %th Api token
-        %th
-        %th
+        %th App Name
+        %th API Token
         %th
 
       - @apps.each do |app|
         %tr
+          %td= app.name
           %td= app.api_token
-          %td= link_to 'Show', app
           %td= link_to 'Edit', edit_app_path(app)
-          %td= link_to 'Destroy', app, :confirm => 'Are you sure?', :method => :delete
 
     %br
-
-    = link_to 'New App', new_app_path

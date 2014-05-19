@@ -1,9 +1,13 @@
-%p#notice= notice
+.row
+  .span8.offset2
+    .well
+      %p
+        %b Name:
+        = @app.name
+        %br
+        %b Api token:
+        = @app.api_token
 
-%p
-  %b Api token:
-  = @app.api_token
-
-= link_to 'Edit', edit_app_path(@app)
-\|
-= link_to 'Back', apps_path
+      = link_to 'Edit', edit_app_path(@app)
+      \|
+      = link_to 'Back', apps_path
