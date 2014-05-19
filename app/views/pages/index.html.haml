@@ -1,2 +1,40 @@
-.well
-  %p Hello!
+.row
+  .span10.offset1.align-center
+    %div{ style:"margin-left:-22px" }
+      = image_tag "sandbox_logo.png", size: "500x176"
+    .spacer2
+.row
+  .span10.offset1
+    .well
+      %p Hi!
+      %p Welcome to the Maestrano API Sandbox. The goal of this platform is to help you test the integration of the Maestrano APIs.
+      
+      %p 
+        The sandbox allows to customize your test environment (users/parameters/variables) and test different scenarios that would happen in production.
+        %br
+        %br
+      
+      %p 
+        %b Currently the Sandbox allows you to test the following:
+      %ul
+        %li User/Group subscription via Single Sign-On
+        %li Billing API
+      
+.row
+  .span10.offset1
+    .well
+      %h3 Part 1 - Getting setup on the Sandbox
+      %ol
+        %li= link_to "Create a test application to retrieve your test API token"
+        %li= link_to "Create one or several groups of users"
+        %li= link_to "Add some users to your group(s)"
+        
+      .spacer1
+      %h3 Part 2 - Testing the APIs
+      %ol
+        %li= link_to "Ping! - A simple ping request to test API connectivity"
+        %li= link_to "Single Sign-On - Simulate a user login to your service via Maestrano"
+        %li= link_to "Billing API - Test customer billing via Maestrano"
+        
+        
+        
