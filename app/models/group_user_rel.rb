@@ -14,6 +14,18 @@ class GroupUserRel < ActiveRecord::Base
   attr_accessible :group_id, :role, :user_id
   
   #============================================
+  # Constants
+  #============================================
+  ALLOWED_ROLES = ['Member', 'Power User', 'Admin', 'Super Admin']
+  
+  #============================================
+  # Validation rules
+  #============================================
+  validates :group_id, :presence => true
+  validates :user_id, :presence => true
+  validates :role, :presence => true, , inclusion: { :in => ALLOWED_ROLES }
+  
+  #============================================
   # Associations
   #============================================
   belongs_to :user
