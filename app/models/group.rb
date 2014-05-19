@@ -11,7 +11,7 @@
 #
 
 class Group < ActiveRecord::Base
-  attr_accessible :name
+  attr_accessible :name, :app_id
   
   #============================================
   # Callbacks

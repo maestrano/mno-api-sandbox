@@ -1,7 +1,13 @@
-%h1 Editing group
+.row
+  .align-center
+    %b Edit your group
+  %hr
+  .span10.offset1
+    %div{style: "width: 555px; margin:auto;"}
+      = render 'form'
+  .clearfix
+  %hr
 
-= render 'form'
-
-= link_to 'Show', @group
-\|
-= link_to 'Back', groups_path
+  = link_to 'Show', @group
+  \|
+  = link_to 'Back', groups_path

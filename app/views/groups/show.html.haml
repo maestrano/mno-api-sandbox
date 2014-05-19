@@ -1,12 +1,16 @@
-%p#notice= notice
+.row
+  .span8.offset2
+    .well
+      %p
+        %b Name:
+        = @group.name
+        %br
+        %b Universal ID:
+        = @group.uid
+        %br
+        %b Use Application:
+        = @group.app.name
 
-%p
-  %b Name:
-  = @group.name
-%p
-  %b Uid:
-  = @group.uid
-
-= link_to 'Edit', edit_group_path(@group)
-\|
-= link_to 'Back', groups_path
+      = link_to 'Edit', edit_group_path(@group)
+      \|
+      = link_to 'Back', groups_path

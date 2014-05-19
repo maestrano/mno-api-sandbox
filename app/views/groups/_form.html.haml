@@ -6,6 +6,6 @@
         - @group.errors.full_messages.each do |msg|
           %li= msg
 
-  = f.text_field :name, placeholder: "Your app name"
-  = f.collection_select :app_id, App.order(:name),:id,:name, include_blank: true
+  = f.text_field :name, placeholder: "Your group name"
+  = f.collection_select :app_id, App.order(:name),:id,:name, {:prompt => '- App to use -'}
   = f.submit 'Save!', class: 'btn btn-primary'
