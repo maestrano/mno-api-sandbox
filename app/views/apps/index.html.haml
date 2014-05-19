@@ -1,4 +1,6 @@
 .row
+  .align-center
+    %b Create a new App
   %hr
   .span10.offset1
     %div{style: "width: 305px; margin:auto;"}
@@ -9,7 +11,8 @@
 .row
   .span10.offset1
     
-    %h5 Below is a list of all applications already created
+    .align-center
+      %b Or use an already existing one
     .spacer1
 
     %table.table.table-striped.table-bordered
@@ -17,11 +20,13 @@
         %th App Name
         %th API Token
         %th
+        %th
 
       - @apps.each do |app|
         %tr
           %td= app.name
           %td= app.api_token
+          %td= link_to 'Show', app_path(app)
           %td= link_to 'Edit', edit_app_path(app)
 
     %br
