@@ -12,6 +12,20 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
+    
     .container
+      .navbar
+        .navbar-inner
+          %a.brand{href: "/"} MNO API Sandbox
+          %ul.nav
+            %li{ class: @section == 'home' && 'active' }
+              %a{href: "#"} Home
+            %li{ class: @section == 'setup' && 'active' }
+              %a{href: apps_path } Setup
+            %li{ class: @section == 'sso' && 'active' }
+              %a{href: "#"} Single Sign-On
+            %li{ class: @section == 'billing' && 'active' }
+              %a{href: "#"} Billing API
+              
       %section{ :id => "mainSection" }
         = yield

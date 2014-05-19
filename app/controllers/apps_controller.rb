@@ -1,4 +1,9 @@
 class AppsController < ApplicationController
+  
+  before_filter do
+    @section = 'setup'
+  end
+  
   # GET /apps
   # GET /apps.json
   def index
@@ -44,6 +49,7 @@ class AppsController < ApplicationController
 
     respond_to do |format|
       if @app.save
+        session[:current_api_token] = @app.api_token
         format.html { redirect_to @app, notice: 'App was successfully created.' }
         format.json { render json: @app, status: :created, location: @app }
       else

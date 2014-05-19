@@ -4,7 +4,7 @@
       = image_tag "sandbox_logo.png", size: "500x176"
     .spacer2
 .row
-  .span10.offset1
+  .span12
     .well
       %p Hi!
       %p Welcome to the Maestrano API Sandbox. The goal of this platform is to help you test the integration of the Maestrano APIs.
@@ -21,11 +21,11 @@
         %li Billing API
       
 .row
-  .span10.offset1
+  .span12
     .well
       %h3 Part 1 - Getting setup on the Sandbox
       %ol
-        %li= link_to "Create a test application to retrieve your test API token"
+        %li= link_to "Create a test application to retrieve your test API token", apps_path
         %li= link_to "Create one or several groups of users"
         %li= link_to "Add some users to your group(s)"
         
