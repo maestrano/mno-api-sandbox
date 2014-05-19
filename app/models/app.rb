@@ -6,6 +6,7 @@
 #  api_token  :string(255)
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
+#  name       :string(255)
 #
 
 class App < ActiveRecord::Base
