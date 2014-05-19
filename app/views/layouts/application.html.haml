@@ -16,12 +16,12 @@
     .container
       .navbar
         .navbar-inner
-          %a.brand{href: "/"} MNO API Sandbox
+          %a.brand{href: root_path } MNO API Sandbox
           %ul.nav
             %li{ class: @section == 'home' && 'active' }
-              %a{href: "#"} Home
-            %li{ class: @section == 'setup' && 'active' }
-              %a{href: apps_path } Setup
+              %a{href: root_path } Home
+            %li{ class: @section == 'app' && 'active' }
+              %a{href: apps_path } Manage Apps
             %li{ class: @section == 'sso' && 'active' }
               %a{href: "#"} Single Sign-On
             %li{ class: @section == 'billing' && 'active' }

@@ -1,12 +1,27 @@
+.row{ style: "margin-top: -40px;"}
+  .span12
+    .alert.alert-info.alert-block
+      %h4 An App?
+      %br
+      An App is an actual Cloud Application that you will connect to Maestrano (e.g: mysupermegacrm.com). For each application you connect you will receive an API token
+      that will allow you to use our APIs (Single Sign-On, Billing and so forth...)
+      %br
+      %br
+      Unlike this dummy sandbox you will be able to re-generate your token at any time from your
+      Maestrano dashboard.
+.spacer2
 .row
   .align-center
     %b Create a new App
-  %hr
+  
   .span10.offset1
+    %hr
     %div{style: "width: 305px; margin:auto;"}
       = render 'form'
-  .clearfix
-  %hr
+      .clearfix
+    %hr
+  
+  
 
 .row
   .span10.offset1
