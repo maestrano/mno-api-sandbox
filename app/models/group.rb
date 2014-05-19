@@ -17,6 +17,12 @@ class Group < ActiveRecord::Base
   #============================================
   after_create :generate_uid
   
+  #============================================
+  # Associations
+  #============================================
+  has_many :group_user_rels
+  has_many :users, through: :group_user_rels
+  
   private
     # Intialize the UID and save the record
     def generate_uid

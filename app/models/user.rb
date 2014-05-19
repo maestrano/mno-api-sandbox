@@ -31,6 +31,12 @@ class User < ActiveRecord::Base
   before_create :setup_free_trial
   after_create :generate_uid
   
+  #============================================
+  # Associations
+  #============================================
+  has_many :group_user_rels
+  has_many :groups, through: :group_user_rels
+  
   private
     # Intialize the UID and save the record
     def generate_uid

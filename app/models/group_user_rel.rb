@@ -12,4 +12,11 @@
 
 class GroupUserRel < ActiveRecord::Base
   attr_accessible :group_id, :role, :user_id
+  
+  #============================================
+  # Associations
+  #============================================
+  belongs_to :user
+  belongs_to :group
+  
 end
