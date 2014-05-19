@@ -1,10 +1,10 @@
 MnoApiSandbox::Application.routes.draw do
+  
+  root to: "pages#index"
+  
   resources :apps
-
   resources :bills
-
   resources :groups
-
   resources :users
 
   # The priority is based upon order of creation:
