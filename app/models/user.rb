@@ -18,12 +18,17 @@ class User < ActiveRecord::Base
   attr_accessible :email, :free_trial_end_at, :geo_country_code, :name, :sso_session, :surname
   
   #============================================
+  # Constants
+  #============================================
+  VALID_COUNTRIES = Country::Data.map { |k,v| k }
+  
+  #============================================
   # Validation rules
   #============================================
   validates :email, :presence => true
   validates :name, :presence => true
   validates :surname, :presence => true
-  validates :geo_country_code, :presence => true
+  validates :geo_country_code, :presence => true, inclusion: { :in => VALID_COUNTRIES }
   
   #============================================
   # Callbacks
@@ -36,6 +41,12 @@ class User < ActiveRecord::Base
   #============================================
   has_many :group_user_rels
   has_many :groups, through: :group_user_rels
+  
+  # Return the role of a user for a given group
+  def role(group)
+    rel = self.group_user_rels.where(group_id: group)
+    return rel ? rel.role : nil
+  end
   
   private
     # Intialize the UID and save the record
