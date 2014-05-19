@@ -43,11 +43,11 @@
       %tr
         %th Name
         %th UID
-        %th Attached to App
+        %th Using App
         %th
         %th
 
-      - @groups.each do |app|
+      - @groups.each do |group|
         %tr
           %td= group.name
           %td= group.uid
