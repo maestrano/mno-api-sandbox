@@ -6,7 +6,7 @@ gem 'haml-rails', '0.3.4'
 gem 'money'
 gem 'countries'
 gem 'sqlite3'
-
+gem 'ruby-saml-idp'
 
 # Javascript runtime environment
 gem "therubyracer", '>= 0.12.0', :require => 'v8'
