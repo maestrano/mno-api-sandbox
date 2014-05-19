@@ -43,6 +43,18 @@ class User < ActiveRecord::Base
   has_many :group_user_rels
   has_many :groups, through: :group_user_rels
   
+  # Return a uid that is unique across users and
+  # groups
+  def virtual_uid(group)
+    return "#{self.uid}.#{group.uid}"
+  end
+  
+  # Return an email that is unique across users and
+  # groups
+  def virtual_email(group)
+    return "#{self.virtual_uid(group)}@mno-api-sandbox-mail.maestrano.com"
+  end
+  
   # Return the role of a user for a given group
   def role(group)
     rel = self.group_user_rels.where(group_id: group)
