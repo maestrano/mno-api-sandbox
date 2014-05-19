@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Api token:
+  = @app.api_token
+
+= link_to 'Edit', edit_app_path(@app)
+\|
+= link_to 'Back', apps_path

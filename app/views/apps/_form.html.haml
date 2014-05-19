@@ -1,0 +1,13 @@
+= form_for @app do |f|
+  -if @app.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@app.errors.count, "error")} prohibited this app from being saved:"
+      %ul
+        - @app.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :api_token
+    = f.text_field :api_token
+  .actions
+    = f.submit 'Save'

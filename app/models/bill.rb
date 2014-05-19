@@ -1,5 +1,27 @@
+# == Schema Information
+#
+# Table name: bills
+#
+#  id           :integer         not null, primary key
+#  uid          :string(255)
+#  description  :string(255)
+#  group_id     :integer
+#  price_cents  :integer
+#  currency     :string(255)
+#  units        :decimal(10, 2)
+#  period_start :datetime
+#  period_end   :datetime
+#  created_at   :datetime        not null
+#  updated_at   :datetime        not null
+#
+
 class Bill < ActiveRecord::Base
   attr_accessible :currency, :description, :group_id, :period_end, :period_start, :price_cents, :units
+  
+  #===================================
+  # Constants
+  #===================================
+  ACCEPTED_CURRENCIES = Money::Currency.table.keys.map { |k| k.to_s.upcase }
   
   #===================================
   # Validation rules
