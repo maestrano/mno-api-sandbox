@@ -1,0 +1,3 @@
+success @errors.empty?
+errors @errors
+data JSON.parse(yield)

@@ -7,6 +7,7 @@ gem 'money'
 gem 'countries'
 gem 'sqlite3'
 gem 'ruby-saml-idp'
+gem 'json_builder'
 
 # Javascript runtime environment
 gem "therubyracer", '>= 0.12.0', :require => 'v8'
