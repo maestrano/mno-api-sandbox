@@ -1,16 +1,11 @@
-= form_for @group do |f|
+= form_for @group, html: { class: 'form-inline' } do |f|
   -if @group.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@group.errors.count, "error")} prohibited this group from being saved:"
+      %h2= "#{pluralize(@app.errors.count, "error")} prohibited this group from being saved:"
       %ul
         - @group.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :uid
-    = f.text_field :uid
-  .actions
-    = f.submit 'Save'
+  = f.text_field :name, placeholder: "Your app name"
+  = f.collection_select :app_id, App.order(:name),:id,:name, include_blank: true
+  = f.submit 'Save!', class: 'btn btn-primary'

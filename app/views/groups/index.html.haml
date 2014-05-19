@@ -1,21 +1,57 @@
-%h1 Listing groups
+.row{ style: "margin-top: -40px;"}
+  .span12
+    .alert.alert-info.alert-block
+      %h4 A Group?
+      %br
+      On Maestrano a group is an actual Application 
+      %b Instance. 
+      But for you it should be considered as
+      a customer account - not to be confused with user account. A group acts 1) as a billable entity for the billing API and 2) as a circle of users collaborating together from an identification point of view (Single Sign-On).
+      %br
+      %br
+      %b E.g:
+      %br 
+      You manage a cloud service called mysuperpayroll.com. One day a new user John comes to Maestrano and decides to take your service. Automatically Maestrano assigns a new group (group 1) to this user for this application. This user can then start inviting other users into this group. On your side - and because they are part of the same group - these users should see the same data / be part of the same collaborative group / be part of the same organization etc.. basically they should be able to work together
+      %br
+      %br
+      Later John decides to take your application again but for a separate business unit. John goes to Maestrano and takes another "instance" of your service. Automatically this creates a new group (group 2) which can be billed and welcome users. 
+      %br 
+      %br Keep in mind that even if John created both group 1 and group 2, these two groups are completely separated. Data accessible in group 1 should not be automatically visible in group 2!!
+.spacer2
+.row
+  .align-center
+    %b Create a new Group
+  
+  .span10.offset1
+    %hr
+    %div{style: "width: 555px; margin:auto;"}
+      = render 'form'
+      .clearfix
+    %hr
+  
+  
 
-%table
-  %tr
-    %th Name
-    %th Uid
-    %th
-    %th
-    %th
+.row
+  .span10.offset1
+    
+    .align-center
+      %b Or explore an already existing one
+    .spacer1
 
-  - @groups.each do |group|
-    %tr
-      %td= group.name
-      %td= group.uid
-      %td= link_to 'Show', group
-      %td= link_to 'Edit', edit_group_path(group)
-      %td= link_to 'Destroy', group, :confirm => 'Are you sure?', :method => :delete
+    %table.table.table-striped.table-bordered
+      %tr
+        %th Name
+        %th UID
+        %th Attached to App
+        %th
+        %th
 
-%br
+      - @groups.each do |app|
+        %tr
+          %td= group.name
+          %td= group.uid
+          %td= group.app.name
+          %td= link_to 'Show', group_path(group)
+          %td= link_to 'Edit', edit_group_path(group)
 
-= link_to 'New Group', new_group_path
+    %br

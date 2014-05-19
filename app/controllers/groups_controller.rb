@@ -3,7 +3,8 @@ class GroupsController < ApplicationController
   # GET /groups.json
   def index
     @groups = Group.all
-
+    @group = Group.new
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @groups }
@@ -47,6 +48,7 @@ class GroupsController < ApplicationController
         format.html { redirect_to @group, notice: 'Group was successfully created.' }
         format.json { render json: @group, status: :created, location: @group }
       else
+        @groups = Group.all
         format.html { render action: "new" }
         format.json { render json: @group.errors, status: :unprocessable_entity }
       end
