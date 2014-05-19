@@ -23,7 +23,7 @@ class GroupUserRel < ActiveRecord::Base
   #============================================
   validates :group_id, :presence => true
   validates :user_id, :presence => true
-  validates :role, :presence => true, , inclusion: { :in => ALLOWED_ROLES }
+  validates :role, :presence => true, inclusion: { :in => ALLOWED_ROLES }
   
   #============================================
   # Associations
