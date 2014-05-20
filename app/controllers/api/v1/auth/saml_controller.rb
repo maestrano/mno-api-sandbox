@@ -75,15 +75,14 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
       @users = User.all
       
       # Remove any group_id param in the url
-      saml_url_without_group_id = request.original_url.gsub(/(&group_id=([^&]*))/,"")
-      saml_url_without_group_id = saml_url_without_group_id.gsub(/(&user_uid=([^&]*))/,"")
+      saml_url_without_user_id = request.original_url.gsub(/(&user_uid=([^&]*))/,"")
       
       # Build SAML replay url for each user
       @saml_replay_info = {}
       
       @users.each do |user|
         @saml_replay_info[user.id] = {}
-        @saml_replay_info[user.id][:url] = "#{saml_url_without_group_id}&user_uid=#{user.uid}"
+        @saml_replay_info[user.id][:url] = "#{saml_url_without_user_id}&user_uid=#{user.uid}"
         
         @saml_replay_info[user.id][:access] = false
         @saml_replay_info[user.id][:access_count] = 0
@@ -162,7 +161,7 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
       
       # Permissions
       hash[:attributes][:group_role] = (user.role(group) || 'Guest')
-      hash[:attributes][:app_owner] = false
+      hash[:attributes][:app_owner] = true
       hash[:attributes][:organizations] = {}
 
       # Return the hash
@@ -174,8 +173,15 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
     # user, group and app being accessed
     def idp_make_saml_response(user,group)
       assertions = idp_build_user_assertions(user,group)
+      
+      # Prepare issuer uri
+      # Cleanup any remaining parameter we may have
+      # added during SSO validation/confirmation
+      issuer_uri = request.original_url.gsub(/(&group_id=([^&]*))/,"").gsub(/(&user_uid=([^&]*))/,"")
+      
       self.encode_SAMLResponse(assertions[:name_id], {
-        attributes: assertions[:attributes]
+        attributes: assertions[:attributes],
+        issuer_uri: issuer_uri
       })
     end
 
@@ -215,7 +221,7 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
       assertion_and_signature = assertion.sub(/Issuer\>\<Subject/, "Issuer>#{signature}<Subject")
 
       xml = %[<samlp:Response ID="_#{response_id}" Version="2.0" IssueInstant="#{now.iso8601}" Destination="#{@saml_acs_url}" Consent="urn:oasis:names:tc:SAML:2.0:consent:unspecified" InResponseTo="#{@saml_request_id}" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"><Issuer xmlns="urn:oasis:names:tc:SAML:2.0:assertion">#{issuer_uri}</Issuer><samlp:Status><samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success" /></samlp:Status>#{assertion_and_signature}</samlp:Response>]
-
+      
       Base64.encode64(xml)
     end
 end
