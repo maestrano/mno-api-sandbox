@@ -2,12 +2,18 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
   before_filter :store_location, only: [:index]
   before_filter :validate_saml_request, only: [:index]
   before_filter :retrieve_issuer_id, only: [:index]
-  #before_filter :authenticate_user!, only: [:index]
 
   # GET /api/v1/auth/saml
   def index
     if !@saml_issuer_id.blank? && @app = App.find_by_api_token(@saml_issuer_id)
-      self.handle_cloud_stack_sso
+      
+      # if a user_uid is selected then proceed to SSO response
+      # Otherwise ask user to select a system user to login with
+      if !params[:user_uid].blank? && @current_user = User.find_by_uid(params[:user_uid])
+        self.handle_cloud_stack_sso
+      else
+        self.render_user_selection_page
+      end
     else
       render text: "Wrong API token"
     end
@@ -28,9 +34,16 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
   end
 
   protected
+    # Display a page asking to select a user to login
+    def select_user_to_login
+      @users = 
+    end
+      
+    end
     # Retrieve the issuer id.
     def retrieve_issuer_id
       @saml_issuer_id = @saml_request[/<saml:Issuer\s?.*>(.*)<\/saml:Issuer>/, 1]
+      !@saml_issuer_id.blank? && @app = App.find_by_api_token(@saml_issuer_id)
       return true
     end
     
@@ -46,7 +59,7 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
       
       # Check that the return url (to consume SSO)
       # matches the app domain
-      @user_group_access_list = retrieve_user_access_list_for_app(current_user,@app)
+      @user_group_access_list = retrieve_user_access_list_for_app(@current_user,@app)
       
       if @user_group_access_list.one?
         @app_instance = @user_group_access_list.first
@@ -62,10 +75,39 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
       end
     end
     
+    # Displays a page asking the user to select
+    # a system user to login with
+    def render_user_selection_page
+      @users = User.all
+      
+      # Remove any group_id param in the url
+      saml_url_without_group_id = request.original_url.gsub(/(&group_id=([^&]*))/,"")
+      saml_url_without_group_id = saml_url_without_group_id.gsub(/(&user_uid=([^&]*))/,"")
+      
+      # Build SAML replay url for each user
+      @saml_replay_info = {}
+      
+      @users.each do |user|
+        @saml_replay_info[user.id] = {}
+        @saml_replay_info[user.id][:url] = "#{saml_url_without_group_id}&user_id=#{user.uid}"
+        
+        @saml_replay_info[user.id][:access] = false
+        @saml_replay_info[user.id][:access_count] = 0
+        user.groups.each do |group|
+          if (group.app == @app)
+            @saml_replay_info[user.id][:access] =true
+            @saml_replay_info[user.id][:access_count] += 1
+          end
+        end
+      end
+      
+      render "api/v1/auth/select_user_to_login"
+    end
+    
     # Redirect to service
-    # Expect current_user and @app_instance to be defined
+    # Expect @current_user and @group to be defined
     def render_saml_response_page
-      @saml_response = self.idp_make_saml_response(current_user,@group)
+      @saml_response = self.idp_make_saml_response(@current_user,@group)
       render :template => "saml_idp/idp/saml_post", :layout => false
     end
     
