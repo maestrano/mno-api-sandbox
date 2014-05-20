@@ -40,18 +40,23 @@
     %b Remove user from groups
   .spacer1
   .span10.offset1
-    - @user.group_user_rels.each do |relation|
-      %table.table.table-striped.table-bordered
-        %tr
-          %th Group
-          %th Using App
-          %th User Role
-          %th
-        %tr
-          %td= relation.group.name
-          %td= relation.group.app.name
-          %td= @user.role(relation.group)
-          %td= link_to 'Remove', relation, :confirm => 'Are you sure?', :method => :delete
+    - if @user.group_user_rels.any?
+      - @user.group_user_rels.each do |relation|
+        %table.table.table-striped.table-bordered
+          %tr
+            %th Group
+            %th Using App
+            %th User Role
+            %th
+          %tr
+            %td= relation.group.name
+            %td= relation.group.app.name
+            %td= @user.role(relation.group)
+            %td= link_to 'Remove', relation, :confirm => 'Are you sure?', :method => :delete
+    - else
+      .align-center
+        %p 
+          %em This user belongs to no groups at the moment!
   .clearfix
   %hr
     

@@ -15,7 +15,17 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-
+    if (excluded_ids = @user.group_user_rels.map(&:group_id)).any?
+      @user_remaining_groups = Group.where("id NOT IN (?)", excluded_ids).to_a
+    else
+      @user_remaining_groups = Group.all.to_a
+    end
+    
+    # Do not use relation to create the new model otherwise the partial
+    # relation gets added to the group_user_rels list which mess
+    # with the rendering of the list
+    @group_user_rel = GroupUserRel.new(user_id: @user.id)
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
@@ -55,7 +65,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to @user, notice: "#{@user.name} has been successfully created. Now you should add this user to some groups" }
         format.json { render json: @user, status: :created, location: @user }
       else
         @users = User.all
