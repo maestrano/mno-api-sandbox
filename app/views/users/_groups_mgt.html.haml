@@ -1,0 +1,46 @@
+.row
+  .align-center
+    %b User Groups
+  .spacer1
+  .span10.offset1
+    %div{style: "width: 510px; margin:auto;"}
+      - if @user_remaining_groups.any?
+        = form_for @group_user_rel, html: { class: 'form-inline' } do |f|
+          -if @group_user_rel.errors.any?
+            #error_explanation
+              %h2= "#{pluralize(@app.errors.count, "error")} prohibited this relation from being saved:"
+              %ul
+                - @group_user_rel.errors.full_messages.each do |msg|
+                  %li= msg
+
+          = f.hidden_field :user_id
+          = f.collection_select :group_id, @user_remaining_groups.sort(&:name),:id,:name, {:prompt => '- Select a group -'}
+          = f.select :role, GroupUserRel::ALLOWED_ROLES, {:prompt => '- Select a role -'}
+          = f.submit 'Add!', class: 'btn btn-primary'
+      - else
+        .align-center
+          %p 
+            %em This user belongs to all groups
+  .clearfix
+  
+  .spacer1
+  .span10.offset1
+    - if @user.group_user_rels.any?
+      %table.table.table-striped.table-bordered
+        %tr
+          %th Group
+          %th Using App
+          %th User Role
+          %th
+        - @user.group_user_rels.each do |relation|
+          %tr
+            %td= relation.group.name
+            %td= relation.group.app.name
+            %td= @user.role(relation.group)
+            %td= link_to 'Remove', relation, :confirm => 'Are you sure?', :method => :delete
+    - else
+      .align-center
+        %p 
+          %em This user belongs to no groups at the moment!
+  .clearfix
+  %hr
