@@ -5,9 +5,9 @@ gem 'jquery-rails'
 gem 'haml-rails', '0.3.4'
 gem 'money'
 gem 'countries'
-gem 'sqlite3'
 gem 'ruby-saml-idp'
 gem 'json_builder'
+gem 'pg'
 
 # Javascript runtime environment
 gem "therubyracer", '>= 0.12.0', :require => 'v8'
@@ -33,6 +33,7 @@ group :development do
   gem 'faker', '0.3.1'
   gem 'syntax', '1.0.0'
   gem 'annotate', '2.4.1.beta1'
+  gem 'sqlite3'
 end
 
 
