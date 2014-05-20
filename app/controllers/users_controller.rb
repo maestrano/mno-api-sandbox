@@ -89,6 +89,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.generate_sso_session!
     
-    redirect_to users_path, notice: "#{@user.name}'s session got expired and regenerated. This should trigger a new SSO handshake in your application in roughly 3 minutes."
+    redirect_to users_path, notice: "#{@user.name}'s session got expired and regenerated. If this user is currently logged in your application then a new SSO handshake should automatically be triggered in roughly 3 minutes."
   end
 end
