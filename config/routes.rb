@@ -5,7 +5,12 @@ MnoApiSandbox::Application.routes.draw do
   resources :apps
   resources :bills
   resources :groups
-  resources :users
+  
+  resources :users do
+    member do
+      get 'regenerate_sso_session'
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

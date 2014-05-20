@@ -82,4 +82,13 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  # GET /users/1/regenerate_sso_session
+  # -- should not be 'GET' but anyway....
+  def regenerate_sso_session
+    @user = User.find(params[:id])
+    @user.generate_sso_session!
+    
+    redirect_to users_path, notice: "#{@user.name}'s session got expired and regenerated. This should trigger a new SSO handshake in your application in roughly 3 minutes."
+  end
 end

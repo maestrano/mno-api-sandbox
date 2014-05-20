@@ -31,7 +31,7 @@
   .align-center
     %b Create a new User
   
-  .span10.offset1
+  .span12
     %hr
     %div{style: "width: 445px; margin:auto;"}
       = render 'form'
@@ -40,7 +40,7 @@
   
 
 .row
-  .span10.offset1
+  .span12
     
     .align-center
       %b Or edit an already existing one
@@ -57,6 +57,7 @@
         %th SSO session
         %th
         %th
+        %th
 
       - @users.each do |user|
         %tr
@@ -69,5 +70,6 @@
           %td= user.sso_session
           %td= link_to 'Show', user
           %td= link_to 'Edit', edit_user_path(user)
+          %td= link_to 'Expire Session', regenerate_sso_session_user_path(user)
 
     %br
