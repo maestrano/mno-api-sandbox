@@ -1,4 +1,9 @@
 class GroupsController < ApplicationController
+  
+  before_filter do
+    @section = 'groups'
+  end
+  
   # GET /groups
   # GET /groups.json
   def index

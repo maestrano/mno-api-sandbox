@@ -18,10 +18,12 @@
         .navbar-inner
           %a.brand{href: root_path } MNO API Sandbox
           %ul.nav
-            %li{ class: @section == 'home' && 'active' }
-              %a{href: root_path } Home
-            %li{ class: @section == 'app' && 'active' }
-              %a{href: apps_path } Manage Apps
+            %li{ class: @section == 'apps' && 'active' }
+              %a{href: apps_path } Apps
+            %li{ class: @section == 'groups' && 'active' }
+              %a{href: groups_path } Groups
+            %li{ class: @section == 'users' && 'active' }
+              %a{href: users_path } Users
             %li{ class: @section == 'sso' && 'active' }
               %a{href: "#"} Single Sign-On
             %li{ class: @section == 'billing' && 'active' }

@@ -1,7 +1,7 @@
 class AppsController < ApplicationController
   
   before_filter do
-    @section = 'app'
+    @section = 'apps'
   end
   
   # GET /apps

@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+  
+  before_filter do
+    @section = 'users'
+  end
+  
   # GET /users
   # GET /users.json
   def index
