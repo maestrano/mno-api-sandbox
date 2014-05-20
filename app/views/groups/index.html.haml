@@ -44,6 +44,7 @@
         %th Name
         %th UID
         %th Using App
+        %th End of Free Trial
         %th
         %th
 
@@ -52,6 +53,7 @@
           %td= group.name
           %td= group.uid
           %td= group.app.name
+          %td= group.free_trial_end_at
           %td= link_to 'Show', group_path(group)
           %td= link_to 'Edit', edit_group_path(group)
 

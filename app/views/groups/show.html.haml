@@ -10,6 +10,10 @@
         %br
         %b Use Application:
         = @group.app.name
+        %br
+        %b End of Free Trial:
+        %b
+        = @group.free_trial_end_at
 
       = link_to 'Edit', edit_group_path(@group)
       \|
