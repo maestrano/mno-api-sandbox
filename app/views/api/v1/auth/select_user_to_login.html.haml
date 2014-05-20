@@ -9,9 +9,16 @@
       %br
       Here we give you the choice of the user so you can test different SSO scenarios:
       %ul 
-        %li user which has not been given access to your app
-        %li user which has access to your app via one group only
-        %li user which has access to your app via two or more groups
+        %li 
+          user which 
+          %b has not 
+          been given access to your app
+        %li 
+          user which has been given access to your app 
+          %b via one group only
+        %li 
+          user which has been given access to your app 
+          %b via two or more groups
         
       %br
       %br
@@ -45,7 +52,7 @@
               User has been given access to your app via
               %b
                 = @saml_replay_info[user.id][:access_count]
-                groups
+                group(s)
             - else
               User has 
               %b not been given access

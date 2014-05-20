@@ -12,7 +12,26 @@ MnoApiSandbox::Application.routes.draw do
       get 'regenerate_sso_session'
     end
   end
-
+  
+  
+  # API Routes
+  namespace :api do
+    namespace :v1 do
+      # Base - Ping action
+      get 'ping', to: 'base#ping'
+      
+      # Auth API
+      namespace :auth do
+        resources :saml, only: [:index, :show]
+      end
+      
+      # Billing API
+      namespace :billing do
+        resources :bills, only: [:index, :show, :create, :destroy]
+      end
+    end
+  end
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,0 +1,43 @@
+.row{ style: "margin-top: -40px;"}
+  .span12
+    .alert.alert-info.alert-block
+      %h4 Why do I need to select a group?
+      %br
+      Before reading this part you should get familiar with the 
+      = link_to "concept of groups", groups_path, target: "_blank"
+      \.
+      %br
+      %br
+      As explained in the link above a user may be part of several groups (= has access to several "instances" of your cloud service). When this is the case, and we cannot identify via which group the user is trying to login, we will ask the user to select the "application instance" (= via which group) they wish to connect to. Each application instance (group) has a nickname on Maestrano so the process is very straightforward for the user.
+      %br
+      %br
+      Upon selecting the "application instance" users get redirected to your service with identity details and group details so you can correctly log them in or create them.
+      
+
+.spacer2
+
+
+.row
+  .span12
+    .align-center
+      %em
+        = "#{@current_user.name} #{@current_user.surname}"
+        has been given access to your app via several groups
+      %br
+      %br
+      %b Please select a group to login via
+    .spacer1
+
+    %table.table.table-striped.table-bordered
+      %tr
+        %th UID
+        %th Name
+        %th
+
+      - @user_group_access_list.each do |group|
+        %tr
+          %td= group.uid
+          %td= group.name
+          %td= link_to 'Login via this group', @saml_replay_urls[group.id]
+
+    %br

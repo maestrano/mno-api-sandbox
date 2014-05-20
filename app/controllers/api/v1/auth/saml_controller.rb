@@ -34,12 +34,6 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
   end
 
   protected
-    # Display a page asking to select a user to login
-    def select_user_to_login
-      @users = 
-    end
-      
-    end
     # Retrieve the issuer id.
     def retrieve_issuer_id
       @saml_issuer_id = @saml_request[/<saml:Issuer\s?.*>(.*)<\/saml:Issuer>/, 1]
@@ -62,13 +56,13 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
       @user_group_access_list = retrieve_user_access_list_for_app(@current_user,@app)
       
       if @user_group_access_list.one?
-        @app_instance = @user_group_access_list.first
+        @group = @user_group_access_list.first
         self.render_saml_response_page
       elsif @user_group_access_list.any?
-        if !@group_id.blank? && @app_instance = @user_group_access_list.find_by_uid(@group_id)
+        if !@group_id.blank? && @group = @user_group_access_list.find_by_uid(@group_id)
           self.render_saml_response_page
         else
-          self.render_app_access_confirmation_page
+          self.render_group_selection_page
         end
       else
         self.render_access_denied_page
@@ -89,7 +83,7 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
       
       @users.each do |user|
         @saml_replay_info[user.id] = {}
-        @saml_replay_info[user.id][:url] = "#{saml_url_without_group_id}&user_id=#{user.uid}"
+        @saml_replay_info[user.id][:url] = "#{saml_url_without_group_id}&user_uid=#{user.uid}"
         
         @saml_replay_info[user.id][:access] = false
         @saml_replay_info[user.id][:access_count] = 0
@@ -101,7 +95,7 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
         end
       end
       
-      render "api/v1/auth/select_user_to_login"
+      render template: "api/v1/auth/select_user_to_login", layout: 'application'
     end
     
     # Redirect to service
@@ -127,23 +121,17 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
     # a cloud service without specifying a group_id
     # ---
     # Expect @user_group_access_list to be defined
-    def render_app_access_confirmation_page
+    def render_group_selection_page
       # Remove any group_id param in the url
       saml_url_without_group_id = request.original_url.gsub(/(&group_id=([^&]*))/,"")
       
-      # Build SAML replay url for each app_instance
-      # so that clicking on one of the app_instance replays the
-      # SAML request with a proper group_id (instance id)
+      # Build SAML replay url for each group
       @saml_replay_urls = {}
       @user_group_access_list.each do |group|
-        @saml_replay_urls[group.id] = "#{saml_url_without_group_id}&group_id=#{app_instance.uid}"
+        @saml_replay_urls[group.id] = "#{saml_url_without_group_id}&group_id=#{group.uid}"
       end
       
-      # Render fail page
-      @meta = {}
-      @meta[:title] = "Select your app"
-      @meta[:description] = "You have multiple apps matching this service. Please select one of your apps."
-      render :template => "pages/app_access_confirmation", :layout => 'application', :status => :forbidden
+      render template: "api/v1/auth/select_group_to_login", layout: 'application'
     end
 
     # Prepare the assertions that will be shared
@@ -183,7 +171,7 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
 
     # Prepare the SAML response
     # Assertion attributes are populated based on the
-    # user and app_instance being accessed
+    # user, group and app being accessed
     def idp_make_saml_response(user,group)
       assertions = idp_build_user_assertions(user,group)
       self.encode_SAMLResponse(assertions[:name_id], {
