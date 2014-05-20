@@ -1,31 +1,17 @@
-= form_for @user do |f|
+= form_for @user, html: { class: 'form-horizontal' } do |f|
   -if @user.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
+      %h2= "#{pluralize(@app.errors.count, "error")} prohibited this app from being saved:"
       %ul
         - @user.errors.full_messages.each do |msg|
           %li= msg
-
-  .field
-    = f.label :email
-    = f.text_field :email
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :surname
-    = f.text_field :surname
-  .field
-    = f.label :free_trial_end_at
-    = f.datetime_select :free_trial_end_at
-  .field
-    = f.label :geo_country_code
-    = f.text_field :geo_country_code
-  .field
-    = f.label :uid
-    = f.text_field :uid
-  .field
-    = f.label :sso_session
-    = f.text_field :sso_session
-  .actions
-    = f.submit 'Save'
+  
+  .control-group
+    = f.text_field :name, placeholder: "First Name"
+    = f.text_field :surname, placeholder: "Last Name"
+  .control-group
+    = f.text_field :email, placeholder: "Email"
+    = f.select :geo_country_code, Country::Data.map { |k,v| [v['name'], k] }.sort { |a,b| a[0] <=> b[0] }, {:prompt => '- Country -'}
+  .control-group
+    .pull-right
+      = f.submit 'Save!', class: 'btn btn-primary'

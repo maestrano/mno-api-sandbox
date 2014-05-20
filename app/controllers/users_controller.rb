@@ -3,7 +3,8 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
-
+    @user = User.new
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @users }
@@ -47,7 +48,8 @@ class UsersController < ApplicationController
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render json: @user, status: :created, location: @user }
       else
-        format.html { render action: "new" }
+        @users = User.all
+        format.html { render action: "index" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
