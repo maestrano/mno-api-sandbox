@@ -1,7 +1,13 @@
-%h1 Editing user
-
-= render 'form'
-
-= link_to 'Show', @user
-\|
-= link_to 'Back', users_path
+.row
+  .align-center
+    %b Edit user
+  %hr
+  .span10.offset1
+    %div{style: "width: 445px; margin:auto;"}
+      = render 'form'
+  .clearfix
+  %hr
+  
+  = link_to 'Show', @user
+  \|
+  = link_to 'Back', users_path
