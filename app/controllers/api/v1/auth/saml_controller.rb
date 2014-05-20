@@ -10,7 +10,6 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
       # if a user_uid is selected then proceed to SSO response
       # Otherwise ask user to select a system user to login with
       user_uid = (params[:user_uid] || session[:current_user])
-      session[:current_user] = nil
       
       if !user_uid.blank? && @current_user = User.find_by_uid(user_uid)
         self.handle_cloud_stack_sso
@@ -103,6 +102,7 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
     # Redirect to service
     # Expect @current_user and @group to be defined
     def render_saml_response_page
+      session[:current_user] = nil # reset current user
       @saml_response = self.idp_make_saml_response(@current_user,@group)
       render :template => "saml_idp/idp/saml_post", :layout => false
     end

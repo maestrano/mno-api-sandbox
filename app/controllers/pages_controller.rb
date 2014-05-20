@@ -5,6 +5,7 @@ class PagesController < ApplicationController
   end
   
   def sso
+    @section = 'sso'
     @users = User.all
     @sso_init_endpoint = (session[:sso_init_endpoint] || "http://localhost:8888/maestrano/auth/saml/index.php")
   end
