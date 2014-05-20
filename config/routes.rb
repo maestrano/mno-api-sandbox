@@ -5,6 +5,7 @@ MnoApiSandbox::Application.routes.draw do
   resources :apps
   resources :bills
   resources :groups
+  resources :group_user_rels
   
   resources :users do
     member do

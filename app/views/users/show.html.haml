@@ -24,3 +24,25 @@
       = link_to 'Edit', edit_user_path(@user)
       \|
       = link_to 'Back', users_path
+      
+      
+.row
+  %hr
+  .align-center
+    %b List of groups this user belongs to
+  .spacer1
+  .span10.offset1
+    - @user.group_user_rels.each do |relation|
+      %table.table.table-striped.table-bordered
+        %tr
+          %th Group
+          %th Using App
+          %th User Role
+          %th
+        %tr
+          %td= relation.group.name
+          %td= relation.group.app.name
+          %td= @user.role(relation.group)
+          %td= link_to 'Remove', relation, :confirm => 'Are you sure?', :method => :delete
+  .clearfix
+  %hr

@@ -1,0 +1,2 @@
+module GroupUserRelsHelper
+end

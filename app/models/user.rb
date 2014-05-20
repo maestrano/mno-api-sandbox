@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
   
   # Return the role of a user for a given group
   def role(group)
-    rel = self.group_user_rels.where(group_id: group)
+    rel = self.group_user_rels.find_by_group_id(group.id)
     return rel ? rel.role : nil
   end
   
