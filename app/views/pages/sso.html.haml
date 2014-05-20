@@ -1,0 +1,40 @@
+.row
+  .span10.offset1
+    %hr
+    .align-center
+      %b Enter your SSO initialization endpoint
+    .spacer1
+    .align-center
+      %input{ type: "text", id: "sso_init_endpoint", value: @sso_init_endpoint, class:"input-xxlarge"}
+    %hr
+      
+.spacer1   
+.row
+  .span10.offset1
+    
+    .align-center
+      %b Select the user you want to login with
+    .spacer1
+
+    %table.table.table-striped.table-bordered
+      %tr
+        %th UID
+        %th Name
+        %th Surname
+        %th Select group to login via and click go
+
+      - @users.each do |user|
+        %tr
+          %td= user.uid
+          %td= user.name
+          %td= user.surname
+          %td
+            %div{ style: "height: 40px;"}
+              = form_tag(sso_trigger_path, method: 'get') do
+                = hidden_field_tag :sso_init_endpoint, ""
+                = hidden_field_tag :user_uid, user.uid
+                = select_tag(:group_uid, options_from_collection_for_select(user.groups, "id", "name"))
+                %div.pull-right
+                  = submit_tag 'Go!', class: 'btn btn-primary'
+
+    %br

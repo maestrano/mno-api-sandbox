@@ -1,7 +1,13 @@
 MnoApiSandbox::Application.routes.draw do
   
+  # Static routes
   root to: "pages#index"
+  get '/app_access_unauthorized', to: "pages#app_access_unauthorized"
+  get '/sso', to: "pages#sso"
+  get '/sso_trigger', to: "pages#sso_trigger"
   
+  
+  # Resources
   resources :apps
   resources :bills
   resources :groups
@@ -12,7 +18,6 @@ MnoApiSandbox::Application.routes.draw do
       get 'regenerate_sso_session'
     end
   end
-  
   
   # API Routes
   namespace :api do
