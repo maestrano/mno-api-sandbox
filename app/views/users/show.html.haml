@@ -1,27 +1,26 @@
-%p#notice= notice
+.row
+  .span8.offset2
+    .well
+      %p
+        %b UID:
+        = @user.uid
+        %br
+        %b Name:
+        = @user.name
+        %br
+        %b Surname:
+        = @user.surname
+        %br
+        %b Email:
+        = @user.email
+        %br
+        %b Country:
+        = @user.geo_country_code
+        %br
+        %b Sso session:
+        = @user.sso_session
+        
 
-%p
-  %b Email:
-  = @user.email
-%p
-  %b Name:
-  = @user.name
-%p
-  %b Surname:
-  = @user.surname
-%p
-  %b Free trial end at:
-  = @user.free_trial_end_at
-%p
-  %b Geo country code:
-  = @user.geo_country_code
-%p
-  %b Uid:
-  = @user.uid
-%p
-  %b Sso session:
-  = @user.sso_session
-
-= link_to 'Edit', edit_user_path(@user)
-\|
-= link_to 'Back', users_path
+      = link_to 'Edit', edit_user_path(@user)
+      \|
+      = link_to 'Back', users_path

@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
   #============================================
   # Callbacks
   #============================================
+  before_create :generate_sso_session
   before_create :setup_free_trial
   after_create :generate_uid
   
@@ -59,6 +60,15 @@ class User < ActiveRecord::Base
   def role(group)
     rel = self.group_user_rels.where(group_id: group)
     return rel ? rel.role : nil
+  end
+  
+  def generate_sso_session
+    self.sso_session = "#{(('a'..'z').to_a + (0..9).to_a).shuffle.join}"
+  end
+  
+  def generate_sso_session!
+    self.generate_sso_session
+    self.save
   end
   
   private

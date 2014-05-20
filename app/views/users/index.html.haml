@@ -8,6 +8,7 @@
       \.
       A user is an actual system user - there are no tricks on that. Having said that users can have multiple "identities" based on the groups they belong to. Or - if you prefer - you can say that a given user can be part of several collaboration groups.
       %br
+      %br
       %b E.g: 
       John is part of group 1 and group 2 which are two different groups using mysuperhrsystem.com via Maestrano. John should therefore be able to collaborate with these two groups on mysuperhrsystem.com and see both groups data. 
       %br
@@ -15,12 +16,13 @@
       Easy? Well it actually depends on your application. Is your application able to link a given user to two different groups/organizations/collaboration groups/company account? 
       %br
       %br
-      If yes, then it's easy! You just need to identify users based on their native universal id (uid - provided by Maestrano) and email then add them to each new group they join.
+      If yes, then it's easy! You just need to identify users based on their native universal id (uid - provided by Maestrano) then add them to each new group they join.
       %br
       %br
-      If no, then don't worry we've got it covered. We give you the ability to create one system account per user per group. For each user we provide a set of composite universal id, username and email (called virtual_uid, virtual_username and virtual_email) that are unique across users and groups. So for any new group the native user joins you can use these details to create a whole new system user without worrying about multi-group management in you system. Easy as well! 
+      If no, then don't worry we've got it covered. We give you the ability to create one system user per real user per group. For each user in a group we provide a set of composite universal id, username and email (called virtual_uid, virtual_username and virtual_email) that are unique across users and groups. So for any new group the native user joins you can use these details to create a whole new system user without worrying about multi-group management in your system. Easy as well! 
       %br
-      Also don't worry too much about this "virtual_email"....all emails you send to these ones get automatically redirected to the user real email address.
+      %br
+      Also don't worry too much about this "composite virtual_email", you can use it safely. All emails you send to it get automatically redirected to the user real email address.
       %br
       %br
       %br
@@ -46,12 +48,12 @@
 
     %table.table.table-striped.table-bordered
       %tr
-        %th Email
+        %th UID
         %th Name
         %th Surname
-        %th Free trial end at
+        %th Email
+        %th Free Trial Ends
         %th Country
-        %th Uid
         %th Sso session
         %th
         %th
@@ -59,12 +61,12 @@
 
       - @users.each do |user|
         %tr
-          %td= user.email
+          %td= user.uid
           %td= user.name
           %td= user.surname
+          %td= user.email
           %td= user.free_trial_end_at
           %td= user.geo_country_code
-          %td= user.uid
           %td= user.sso_session
           %td= link_to 'Show', user
           %td= link_to 'Edit', edit_user_path(user)
