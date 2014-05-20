@@ -9,7 +9,10 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
       
       # if a user_uid is selected then proceed to SSO response
       # Otherwise ask user to select a system user to login with
-      if !params[:user_uid].blank? && @current_user = User.find_by_uid(params[:user_uid])
+      user_uid = (params[:user_uid] || session[:current_user])
+      session[:current_user] = nil
+      
+      if !user_uid.blank? && @current_user = User.find_by_uid(user_uid)
         self.handle_cloud_stack_sso
       else
         self.render_user_selection_page
