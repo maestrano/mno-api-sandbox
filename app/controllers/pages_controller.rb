@@ -13,7 +13,7 @@ class PagesController < ApplicationController
   def sso_trigger
     session[:current_user] = params[:user_uid]
     session[:sso_init_endpoint] = params[:sso_init_endpoint]
-    sso_redirect_url = "#{params[:sso_init_endpoint]}?group_uid=#{params[:group_uid]}"
+    sso_redirect_url = "#{params[:sso_init_endpoint]}?group_id=#{params[:group_id]}"
     
     redirect_to sso_redirect_url
   end

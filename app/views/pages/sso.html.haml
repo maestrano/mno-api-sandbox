@@ -33,7 +33,7 @@
               = form_tag(sso_trigger_path, method: 'get') do
                 = hidden_field_tag :sso_init_endpoint, @sso_init_endpoint
                 = hidden_field_tag :user_uid, user.uid
-                = select_tag(:group_uid, options_from_collection_for_select(user.groups, "uid", "name"))
+                = select_tag(:group_id, options_from_collection_for_select(user.groups, "uid", "name"))
                 %div.pull-right
                   = submit_tag 'Go!', class: 'btn btn-primary'
 
