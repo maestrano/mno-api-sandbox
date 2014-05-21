@@ -77,7 +77,7 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
       @users = User.all
       
       # Remove any group_id param in the url
-      saml_url_without_user_id = request.original_url.gsub(/(&user_uid=([^&]*))/,"")
+      saml_url_without_user_id = request.original_url.gsub(/(&user_uid=[^&]*)/,"")
       
       # Build SAML replay url for each user
       @saml_replay_info = {}
@@ -125,7 +125,7 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
     # Expect @user_group_access_list to be defined
     def render_group_selection_page
       # Remove any group_id param in the url
-      saml_url_without_group_id = request.original_url.gsub(/(&group_id=([^&]*))/,"")
+      saml_url_without_group_id = request.original_url.gsub(/(&group_id=[^&]*)/,"")
       
       # Build SAML replay url for each group
       @saml_replay_urls = {}
@@ -180,7 +180,7 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
       # Prepare issuer uri
       # Cleanup any remaining parameter we may have
       # added during SSO validation/confirmation
-      issuer_uri = request.original_url.gsub(/(&group_id=([^&]*))/,"").gsub(/(&user_uid=([^&]*))/,"")
+      issuer_uri = request.original_url.gsub(/(&group_id=[^&]*)/,"").gsub(/(&user_uid=[^&]*)/,"")
       
       self.encode_SAMLResponse(assertions[:name_id], {
         attributes: assertions[:attributes],
