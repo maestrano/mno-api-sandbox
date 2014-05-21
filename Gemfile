@@ -36,6 +36,7 @@ group :development do
   gem 'sqlite3'
 end
 
+ruby "1.9.2"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
