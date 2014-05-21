@@ -14,7 +14,7 @@
                   %li= msg
 
           = f.hidden_field :user_id
-          = f.collection_select :group_id, @user_remaining_groups.sort(&:name),:id,:name, {:prompt => '- Select a group -'}
+          = f.collection_select :group_id, @user_remaining_groups.sort { |a,b| a.name <=> b.name },:id,:name, {:prompt => '- Select a group -'}
           = f.select :role, GroupUserRel::ALLOWED_ROLES, {:prompt => '- Select a role -'}
           = f.submit 'Add!', class: 'btn btn-primary'
       - else
