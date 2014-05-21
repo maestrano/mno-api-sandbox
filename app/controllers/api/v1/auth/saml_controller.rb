@@ -180,7 +180,7 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
       # Prepare issuer uri
       # Cleanup any remaining parameter we may have
       # added during SSO validation/confirmation
-      issuer_uri = request.original_url.gsub(/(&group_id=[^&]*)/,"").gsub(/(&user_uid=[^&]*)/,"")
+      issuer_uri = request.original_url.gsub(/(&.*$)/,"")
       
       self.encode_SAMLResponse(assertions[:name_id], {
         attributes: assertions[:attributes],
