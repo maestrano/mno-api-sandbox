@@ -26,15 +26,16 @@ class Api::V1::Billing::BillsController < Api::V1::BaseController
   def create
     # Prepare attributes
     whitelist = ['group_id','price_cents','description','units','currency']
-    attributes = params[:bill].select { |k,v| whitelist.include?(k.to_s) }
+    puts params
+    attributes = params.select { |k,v| whitelist.include?(k.to_s) }
     attributes.symbolize_keys!
     
     # Find Group
-    group = current_app.app_instances.find_by_uid(attributes.delete(:group_id))
+    group = current_app.groups.find_by_uid(attributes.delete(:group_id))
     
     # Create bill
     if group
-      attributes[:group] = group
+      attributes[:group_id] = group.id
       @bill = Bill.create(attributes)
       @errors.merge!(@bill.errors.to_hash)
     else
