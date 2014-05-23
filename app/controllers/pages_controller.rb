@@ -19,6 +19,8 @@ class PagesController < ApplicationController
   end
   
   def app_access_unauthorized
-    
+  end
+  
+  def app_logout
   end
 end

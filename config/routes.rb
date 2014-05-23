@@ -3,6 +3,7 @@ MnoApiSandbox::Application.routes.draw do
   # Static routes
   root to: "pages#index"
   get '/app_access_unauthorized', to: "pages#app_access_unauthorized"
+  get '/app_logout', to: "pages#app_logout"
   get '/sso', to: "pages#sso"
   get '/sso_trigger', to: "pages#sso_trigger"
   
