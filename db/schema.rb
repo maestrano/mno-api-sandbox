@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140520100431) do
+ActiveRecord::Schema.define(:version => 20140523012816) do
 
   create_table "apps", :force => true do |t|
     t.string   "api_token"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20140520100431) do
     t.datetime "period_end"
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
+    t.string   "status"
   end
 
   create_table "group_user_rels", :force => true do |t|
