@@ -26,9 +26,19 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
   # GET /api/v1/auth/saml/usr-xyz.cld-g4fd53?session=f15s34g10f5dh4fg35jh3fg14jhg8
   # GET /api/v1/auth/saml/usr-xyz.cld-g4fd53@appmail.maestrano.com?session=f15s34g10f5dh4fg35jh3f
   def show
+    if m = params[:id].match(/([^\.]+)/)
+      uid = m.captures.first
+    else
+      uid = params[:id]
+    end
+    sso_session = params[:session]
+    
+    # Check if session is valid
+    @valid_session = (!uid.blank? && !sso_session.blank? && User.where(uid:uid,sso_session:sso_session).count > 0)
+    
     # Build response
     response_hash = {
-      valid: false,
+      valid: @valid_session,
       recheck: 3.minutes.from_now.utc
     }
 
