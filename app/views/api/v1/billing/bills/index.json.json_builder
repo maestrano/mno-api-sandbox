@@ -4,6 +4,7 @@ array @bills do |bill|
   group_id bill.group.uid
   created_at bill.created_at
   price_cents bill.price_cents
+  status bill.status
   currency bill.currency
   units bill.units
   description bill.description
