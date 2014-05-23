@@ -1,0 +1,11 @@
+if @bill
+  uid @bill.uid
+  group_id @bill.billable.uid
+  created_at @bill.created_at
+  price_cents @bill.price_cents
+  currency @bill.currency
+  units @bill.units
+  description @bill.description
+  period_start bill.period_start
+  period_end bill.period_end
+end
