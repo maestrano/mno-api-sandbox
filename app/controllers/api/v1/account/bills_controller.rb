@@ -44,7 +44,7 @@ class Api::V1::Billing::BillsController < Api::V1::BaseController
     
     # Render
     if @errors.empty?
-      render template: 'api/v1/billing/bills/show'
+      render template: 'api/v1/account/bills/show'
     else
       render template: 'api/v1/base/empty', status: :unprocessable_entity
     end
@@ -63,7 +63,7 @@ class Api::V1::Billing::BillsController < Api::V1::BaseController
     
     # Render
     if @errors.empty?
-      render template: 'api/v1/billing/bills/show'
+      render template: 'api/v1/account/bills/show'
     else
       render template: 'api/v1/base/empty', status: :unprocessable_entity
     end

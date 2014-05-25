@@ -32,7 +32,7 @@ MnoApiSandbox::Application.routes.draw do
       end
       
       # Billing API
-      namespace :billing do
+      namespace :account do
         resources :bills, only: [:index, :show, :create, :destroy]
       end
     end
