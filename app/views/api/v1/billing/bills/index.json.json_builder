@@ -1,6 +1,6 @@
 array @bills do |bill|
   object "account_#{bill.class.to_s.downcase}"
-  uid bill.uid
+  id bill.uid
   group_id bill.group.uid
   created_at bill.created_at
   price_cents bill.price_cents
