@@ -22,8 +22,8 @@
       %td= bill.price_cents
       %td= bill.currency
       %td= bill.units
-      %td= bill.period_start
-      %td= bill.period_end
+      %td= bill.period_started_at
+      %td= bill.period_ended_at
       %td= link_to 'Show', bill
       %td= link_to 'Edit', edit_bill_path(bill)
       %td= link_to 'Destroy', bill, :confirm => 'Are you sure?', :method => :delete

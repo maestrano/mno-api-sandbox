@@ -8,6 +8,6 @@ if @bill
   currency @bill.currency
   units @bill.units
   description @bill.description
-  period_start @bill.period_start
-  period_end @bill.period_end
+  period_started_at @bill.period_started_at
+  period_ended_at @bill.period_ended_at
 end

@@ -25,10 +25,10 @@
     = f.label :units
     = f.text_field :units
   .field
-    = f.label :period_start
-    = f.datetime_select :period_start
+    = f.label :period_started_at
+    = f.datetime_select :period_started_at
   .field
-    = f.label :period_end
-    = f.datetime_select :period_end
+    = f.label :period_ended_at
+    = f.datetime_select :period_ended_at
   .actions
     = f.submit 'Save'

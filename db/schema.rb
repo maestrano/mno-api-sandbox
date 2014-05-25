@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140523012816) do
+ActiveRecord::Schema.define(:version => 20140525140750) do
 
   create_table "apps", :force => true do |t|
     t.string   "api_token"
@@ -26,11 +26,11 @@ ActiveRecord::Schema.define(:version => 20140523012816) do
     t.integer  "group_id"
     t.integer  "price_cents"
     t.string   "currency"
-    t.decimal  "units",        :precision => 10, :scale => 2
-    t.datetime "period_start"
-    t.datetime "period_end"
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
+    t.decimal  "units",             :precision => 10, :scale => 2
+    t.datetime "period_started_at"
+    t.datetime "period_ended_at"
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
     t.string   "status"
   end
 

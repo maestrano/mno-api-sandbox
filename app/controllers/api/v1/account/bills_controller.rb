@@ -19,8 +19,8 @@ class Api::V1::Account::BillsController < Api::V1::BaseController
   # => group_id - app_instance id
   # => price_cents - integer
   # => description - string
-  # ( => period_start - datetime )
-  # ( => period_end - datetime )
+  # ( => period_started_at - datetime )
+  # ( => period_ended_at - datetime )
   # ( => units - integer/decimal <> 0 )
   # ( => currency - valid three letter code )
   def create
