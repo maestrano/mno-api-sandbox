@@ -1,4 +1,4 @@
-class Api::V1::Billing::BillsController < Api::V1::BaseController
+class Api::V1::Account::BillsController < Api::V1::BaseController
   
   # GET /api/v1/billing/bills
   def index
