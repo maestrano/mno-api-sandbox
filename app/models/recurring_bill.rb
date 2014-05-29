@@ -12,7 +12,7 @@
 #  status      :string(255)
 #  price_cents :integer
 #  currency    :string(255)
-#  group_id    :string(255)
+#  group_id    :integer(255)
 #  created_at  :datetime        not null
 #  updated_at  :datetime        not null
 #

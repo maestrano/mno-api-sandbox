@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140529025352) do
+ActiveRecord::Schema.define(:version => 20140529124458) do
 
   create_table "apps", :force => true do |t|
     t.string   "api_token"
@@ -61,9 +61,9 @@ ActiveRecord::Schema.define(:version => 20140529025352) do
     t.string   "status"
     t.integer  "price_cents"
     t.string   "currency"
-    t.string   "group_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer  "group_id",    :limit => 255
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   create_table "users", :force => true do |t|
