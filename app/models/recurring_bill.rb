@@ -44,6 +44,33 @@ class RecurringBill < ActiveRecord::Base
   before_validation :set_default_values
   after_create :generate_uid
   
+  #============================================
+  # Associations
+  #============================================
+  belongs_to :group
+  
+  #===================================
+  # Status methods
+  #===================================
+  def active?
+    (self.status == 'active' || !self.status)
+  end
+  
+  def cancelled?
+    self.status == 'cancelled'
+  end
+  
+  # This methods sets the status of a submitted bill
+  # to 'cancelled'
+  # If the status of the bill is 'invoiced' then it
+  # does nothing and adds an error on status
+  def cancel!
+    return true if self.cancelled?
+    
+    self.status = 'cancelled'
+    self.save
+  end
+  
   private
     def validate_start_date
       unless self.start_date > 1.hour.ago
