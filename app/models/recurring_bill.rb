@@ -1,0 +1,70 @@
+# == Schema Information
+#
+# Table name: recurring_bills
+#
+#  id          :integer         not null, primary key
+#  uid         :string(255)
+#  period      :string(255)
+#  frequency   :integer
+#  cycles      :integer
+#  start_date  :datetime
+#  description :string(255)
+#  status      :string(255)
+#  price_cents :integer
+#  currency    :string(255)
+#  group_id    :string(255)
+#  created_at  :datetime        not null
+#  updated_at  :datetime        not null
+#
+
+class RecurringBill < ActiveRecord::Base
+  attr_accessible :currency, :cycles, :description, :frequency, :group_id, 
+                  :period, :price_cents, :start_date
+  
+  #===================================
+  # Constants
+  #===================================
+  ACCEPTED_CURRENCIES = Money::Currency.table.keys.map { |k| k.to_s.upcase }
+  ACCEPTED_PERIODS = %w(day week semimonth month year)
+  STATUSES = %w( active cancelled )
+  
+  #===================================
+  # Validation rules
+  #===================================
+  validates :group_id, presence: true, numericality: { only_integer: true }
+  validates :currency, presence: true, inclusion: { in: ACCEPTED_CURRENCIES }
+  validates :price_cents, :presence => true, :numericality => { only_integer: true, greater_than: 0 }
+  validates :description, presence: true
+  validates :period, presence: true, inclusion: { in: ACCEPTED_PERIODS }
+  validate  :validate_start_date
+  
+  #============================================
+  # Callbacks
+  #============================================
+  before_validation :set_default_values
+  after_create :generate_uid
+  
+  private
+    def validate_start_date
+      unless self.start_date > 1.hour.ago
+        errors.add(:start_date, "cannot be in the past")
+      end
+    end
+    
+    def set_default_values
+      self.period ||= ACCEPTED_PERIODS.first
+      self.period.downcase!
+      self.status = STATUSES.first unless STATUSES.include?(self.status)
+      self.start_date ||= Time.now
+      self.frequency ||= 1
+    end
+    
+    # Intialize the UID and save the record
+    def generate_uid
+      if self.id && !self.uid
+        self.uid = "rbill-#{self.id}"
+        RecurringBill.update_all({uid:self.uid}, {id: self.id})
+      end
+      return true
+    end
+end
