@@ -84,7 +84,7 @@ class RecurringBill < ActiveRecord::Base
       self.status = STATUSES.first unless STATUSES.include?(self.status)
       self.start_date ||= Time.now
       self.frequency ||= 1
-      self.currency ||= 'AUD'
+      self.currency = 'AUD' if self.currency.blank?
     end
     
     # Intialize the UID and save the record
