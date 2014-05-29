@@ -34,6 +34,7 @@ MnoApiSandbox::Application.routes.draw do
       # Billing API
       namespace :account do
         resources :bills, only: [:index, :show, :create, :destroy]
+        resources :recurring_bills, only: [:index, :show, :create, :destroy]
       end
     end
   end
