@@ -1,15 +1,15 @@
-class Api::V1::Account::BillsController < Api::V1::BaseController
+class Api::V1::Account::RecurringBillsController < Api::V1::BaseController
   
   # GET /api/v1/account/bills
   def index
-    @bills = current_app.bills
+    @recurring_bills = current_app.recurring_bills
   end
   
   # GET /api/v1/account/bills/bill-4s5d3
   def show
-    @bill = current_app.bills.find_by_uid(params[:id])
+    @recurring_bill = current_app.recurring_bills.find_by_uid(params[:id])
     
-    if !@bill
+    if !@recurring_bill
       @errors[:id] = ["does not exist"]
     end
   end
@@ -19,13 +19,14 @@ class Api::V1::Account::BillsController < Api::V1::BaseController
   # => group_id - app_instance id
   # => price_cents - integer
   # => description - string
-  # ( => period_started_at - datetime )
-  # ( => period_ended_at - datetime )
-  # ( => units - integer/decimal <> 0 )
-  # ( => currency - valid three letter code )
+  # ( => period - string [Day, Week, SemiMonth, Month, Year] default: Month )
+  # ( => frequency - integer - default: 1)
+  # ( => cycles - integer - default: nil)
+  # ( => start_date - integer - default: now)
+  # ( => currency - valid three letter code - default: AUD)
   def create
     # Prepare attributes
-    whitelist = ['group_id','price_cents','description','units','currency']
+    whitelist = ['group_id','price_cents','description','currency', 'period', 'frequency', 'cycles', 'start_date']
     puts params
     attributes = params.select { |k,v| whitelist.include?(k.to_s) }
     attributes.symbolize_keys!
@@ -36,15 +37,15 @@ class Api::V1::Account::BillsController < Api::V1::BaseController
     # Create bill
     if group
       attributes[:group_id] = group.id
-      @bill = Bill.create(attributes)
-      @errors.merge!(@bill.errors.to_hash)
+      @recurring_bill = RecurringBill.create(attributes)
+      @errors.merge!(@recurring_bill.errors.to_hash)
     else
       @errors[:group_id] = ['does not exist or cannot be charged by your service']
     end
     
     # Render
     if @errors.empty?
-      render template: 'api/v1/account/bills/show'
+      render template: 'api/v1/account/recurring_bills/show'
     else
       render template: 'api/v1/base/empty', status: :unprocessable_entity
     end
@@ -52,18 +53,18 @@ class Api::V1::Account::BillsController < Api::V1::BaseController
   
   # DELETE /api/v1/account/bills/bill-4s5d3
   def destroy
-    @bill = current_app.bills.find_by_uid(params[:id])
+    @recurring_bill = current_app.bills.find_by_uid(params[:id])
     
-    if @bill
-      @bill.cancel!
-      @errors.merge!(@bill.errors.to_hash)
+    if @recurring_bill
+      @recurring_bill.cancel!
+      @errors.merge!(@recurring_bill.errors.to_hash)
     else
       @errors[:id] = ["does not exist"]
     end
     
     # Render
     if @errors.empty?
-      render template: 'api/v1/account/bills/show'
+      render template: 'api/v1/account/recurring_bills/show'
     else
       render template: 'api/v1/base/empty', status: :unprocessable_entity
     end

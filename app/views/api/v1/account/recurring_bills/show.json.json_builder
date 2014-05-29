@@ -1,0 +1,14 @@
+if @recurring_bill
+  object "account_#{@recurring_bill.class.to_s.downcase}"
+  id @recurring_bill.uid
+  group_id @recurring_bill.group.uid
+  created_at @recurring_bill.created_at
+  price_cents @recurring_bill.price_cents
+  status @recurring_bill.status
+  currency @recurring_bill.currency
+  description @recurring_bill.description
+  start_date @recurring_bill.start_date
+  period @recurring_bill.period
+  frequency @recurring_bill.frequency
+  cycles @recurring_bill.cycles
+end

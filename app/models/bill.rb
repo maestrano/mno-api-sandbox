@@ -37,6 +37,7 @@ class Bill < ActiveRecord::Base
   #============================================
   # Callbacks
   #============================================
+  before_validation :set_default_values
   after_create :generate_uid
   
   #============================================
@@ -76,7 +77,13 @@ class Bill < ActiveRecord::Base
   end
   
   private
-    # Intialize the UID and save the record
+    # Default status to 'submitted' if nil or invalid
+    def set_default_values
+      self.status = STATUSES.first unless STATUSES.include?(self.status)
+      self.currency ||= 'AUD'
+    end
+    
+    # Initialize the UID and save the record
     def generate_uid
       if self.id && !self.uid
         self.uid = "bill-#{self.id}"
@@ -85,8 +92,4 @@ class Bill < ActiveRecord::Base
       return true
     end
     
-    # Default status to 'submitted' if nil or invalid
-    def set_default_values
-      self.status = STATUSES.first unless STATUSES.include?(self.status)
-    end
 end
