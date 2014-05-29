@@ -27,6 +27,7 @@ class App < ActiveRecord::Base
   #============================================
   has_many :groups
   has_many :bills, through: :groups
+  has_many :recurring_bills, through: :groups
   
   private
     # Intialize the api_token
