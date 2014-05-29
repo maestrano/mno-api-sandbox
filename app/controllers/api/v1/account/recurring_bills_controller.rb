@@ -47,7 +47,7 @@ class Api::V1::Account::RecurringBillsController < Api::V1::BaseController
     if @errors.empty?
       render template: 'api/v1/account/recurring_bills/show'
     else
-      render template: 'api/v1/base/empty', status: :unprocessable_entity
+      render template: 'api/v1/base/empty', status: :bad_request
     end
   end
   
@@ -66,7 +66,7 @@ class Api::V1::Account::RecurringBillsController < Api::V1::BaseController
     if @errors.empty?
       render template: 'api/v1/account/recurring_bills/show'
     else
-      render template: 'api/v1/base/empty', status: :unprocessable_entity
+      render template: 'api/v1/base/empty', status: :bad_request
     end
   end
 end
