@@ -20,7 +20,7 @@ class Api::V1::BaseController < ApplicationController
     def authenticate_app!
       unless app_signed_in?
         @errors = {authentication: ["Invalid API token"]}
-        render template: 'api/v1/base/empty', status: :forbidden
+        render template: 'api/v1/base/empty', status: :unauthorized
       end
     end
     
