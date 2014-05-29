@@ -23,6 +23,7 @@ class Bill < ActiveRecord::Base
   # Constants
   #===================================
   ACCEPTED_CURRENCIES = Money::Currency.table.keys.map { |k| k.to_s.upcase }
+  STATUSES = %w( submitted cancelled invoiced )
   
   #===================================
   # Validation rules
@@ -86,6 +87,6 @@ class Bill < ActiveRecord::Base
     
     # Default status to 'submitted' if nil or invalid
     def set_default_values
-      self.status = 'submitted' unless STATUSES.include?(self.status)
+      self.status = STATUSES.first unless STATUSES.include?(self.status)
     end
 end
