@@ -1,33 +1,45 @@
-%h1 Listing bills
+.row{ style: "margin-top: -40px;"}
+  .span12
+    .alert.alert-info.alert-block
+      %h4 Bills
+      %br
+      A bill is a charge on one of your Maestrano customers. You can bill your customers during the month depending based on the product they buy in your application - typically new users added to a given group, localization package, premium support etc.
+      %br
+      %br
+      If your service is essentially subscription based then you might be interested in setting up a recurring bill.
 
-%table
-  %tr
-    %th Uid
-    %th Description
-    %th Group
-    %th Price cents
-    %th Currency
-    %th Units
-    %th Period start
-    %th Period end
-    %th
-    %th
-    %th
+.row
+  .span12
+    
+    .align-center
+      %b List of bills created via API
+    .spacer1
 
-  - @bills.each do |bill|
-    %tr
-      %td= bill.uid
-      %td= bill.description
-      %td= bill.group_id
-      %td= bill.price_cents
-      %td= bill.currency
-      %td= bill.units
-      %td= bill.period_started_at
-      %td= bill.period_ended_at
-      %td= link_to 'Show', bill
-      %td= link_to 'Edit', edit_bill_path(bill)
-      %td= link_to 'Destroy', bill, :confirm => 'Are you sure?', :method => :delete
+    %table.table.table-striped.table-bordered
+      %tr
+        %th UID
+        %th Cents
+        %th Currency
+        %th Status
+        %th Units
+        %th Description
+        %th Period Start
+        %th Period End
+        %th Group Charged
+        %th App Charging
 
-%br
+      - @bills.each do |bill|
+        %tr
+          %td= bill.uid
+          %td= bill.price_cents
+          %td= bill.currency
+          %td= bill.status
+          %td= bill.units
+          %td= bill.description
+          %td= bill.period_started_at
+          %td= bill.period_ended_at
+          %td= "#{bill.group.name} (#{bill.group.uid})"
+          %td= bill.group.app.name
+          
 
-= link_to 'New Bill', new_bill_path
+    %br
