@@ -61,9 +61,9 @@ ActiveRecord::Schema.define(:version => 20140529124458) do
     t.string   "status"
     t.integer  "price_cents"
     t.string   "currency"
-    t.integer  "group_id",    :limit => 255
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "group_id"
   end
 
   create_table "users", :force => true do |t|
