@@ -1,0 +1,37 @@
+= form_for @recurring_bill do |f|
+  -if @recurring_bill.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@recurring_bill.errors.count, "error")} prohibited this recurring_bill from being saved:"
+      %ul
+        - @recurring_bill.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :uid
+    = f.text_field :uid
+  .field
+    = f.label :price_cents
+    = f.number_field :price_cents
+  .field
+    = f.label :currency
+    = f.text_field :currency
+  .field
+    = f.label :status
+    = f.text_field :status
+  .field
+    = f.label :period
+    = f.text_field :period
+  .field
+    = f.label :frequency
+    = f.number_field :frequency
+  .field
+    = f.label :cycles
+    = f.number_field :cycles
+  .field
+    = f.label :start_date
+    = f.datetime_select :start_date
+  .field
+    = f.label :group_id
+    = f.number_field :group_id
+  .actions
+    = f.submit 'Save'

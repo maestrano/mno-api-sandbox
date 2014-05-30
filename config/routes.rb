@@ -11,6 +11,7 @@ MnoApiSandbox::Application.routes.draw do
   # Resources
   resources :apps
   resources :bills
+  resources :recurring_bills
   resources :groups
   resources :group_user_rels
   

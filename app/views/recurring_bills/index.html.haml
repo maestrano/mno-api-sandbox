@@ -1,0 +1,45 @@
+.row{ style: "margin-top: -40px;"}
+  .span12
+    .alert.alert-info.alert-block
+      %h4 Recurring Bill
+      %br
+      A recurring bill is a charge on one of your Maestrano customers that will occur at a regular time interval without you having to do anything. For these recurring bills you can specify that it should occur every day/week/semi-month/month/year or even every 2 days, every 3 months for a maximum duration for 3 cycles for example.
+      %br
+      %br
+      Note that if your service is essentially based on in app purchases then you might prefer to use adhoc bills.
+
+.row
+  .span12
+    
+    .align-center
+      %b List of recurring bills created via API
+    .spacer1
+
+    %table.table.table-striped.table-bordered
+      %tr
+        %th UID
+        %th Cents
+        %th Currency
+        %th Status
+        %th Description
+        %th Period
+        %th Frequency
+        %th Start
+        %th Group Charged
+        %th App Charging
+
+      - @recurring_bills.each do |bill|
+        %tr
+          %td= bill.uid
+          %td= bill.price_cents
+          %td= bill.currency
+          %td= bill.status
+          %td= bill.description
+          %td= bill.period
+          %td= bill.frequency
+          %td= bill.start_date
+          %td= "#{bill.group.name} (#{bill.group.uid})"
+          %td= bill.group.app.name
+          
+
+    %br

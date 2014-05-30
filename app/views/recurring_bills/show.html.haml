@@ -1,0 +1,33 @@
+%p#notice= notice
+
+%p
+  %b Uid:
+  = @recurring_bill.uid
+%p
+  %b Price cents:
+  = @recurring_bill.price_cents
+%p
+  %b Currency:
+  = @recurring_bill.currency
+%p
+  %b Status:
+  = @recurring_bill.status
+%p
+  %b Period:
+  = @recurring_bill.period
+%p
+  %b Frequency:
+  = @recurring_bill.frequency
+%p
+  %b Cycles:
+  = @recurring_bill.cycles
+%p
+  %b Start date:
+  = @recurring_bill.start_date
+%p
+  %b Group:
+  = @recurring_bill.group_id
+
+= link_to 'Edit', edit_recurring_bill_path(@recurring_bill)
+\|
+= link_to 'Back', recurring_bills_path
