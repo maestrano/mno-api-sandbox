@@ -5,7 +5,7 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
 
   # GET /api/v1/auth/saml
   def index
-    if !@saml_issuer_id.blank? && @app = App.find_by_api_token(@saml_issuer_id)
+    if !@saml_issuer_id.blank? && @app = App.find_by_uid(@saml_issuer_id)
       
       # if a user_uid is selected then proceed to SSO response
       # Otherwise ask user to select a system user to login with
@@ -49,7 +49,6 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
     # Retrieve the issuer id.
     def retrieve_issuer_id
       @saml_issuer_id = @saml_request[/<saml:Issuer\s?.*>(.*)<\/saml:Issuer>/, 1]
-      !@saml_issuer_id.blank? && @app = App.find_by_api_token(@saml_issuer_id)
       return true
     end
     
