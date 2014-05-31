@@ -56,8 +56,8 @@ class Api::V1::BaseController < ApplicationController
     # the matching App
     def app_from_basic_authentication
       returned_app = nil
-      authenticate_with_http_basic do |api_token, dontcare|
-        returned_app = App.find_by_api_token(api_token)
+      authenticate_with_http_basic do |app_id, api_token|
+        returned_app = App.find_by_uid_and_api_token(app_id,api_token)
       end
       returned_app
     end
