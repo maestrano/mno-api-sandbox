@@ -33,6 +33,7 @@
     %table.table.table-striped.table-bordered
       %tr
         %th App Name
+        %th App Id
         %th API Token
         %th
         %th
@@ -40,6 +41,7 @@
       - @apps.each do |app|
         %tr
           %td= app.name
+          %td= app.uid
           %td= app.api_token
           %td= link_to 'Show', app_path(app)
           %td= link_to 'Edit', edit_app_path(app)
