@@ -7,6 +7,7 @@
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
 #  name       :string(255)
+#  uid        :string(255)
 #
 
 class App < ActiveRecord::Base
@@ -35,6 +36,15 @@ class App < ActiveRecord::Base
       if self.id && !self.api_token
         self.api_token = "#{(('a'..'z').to_a + (0..9).to_a).shuffle.join}#{self.id}"
         App.update_all({api_token:self.api_token}, {id: self.id})
+      end
+      return true
+    end
+    
+    # Initialize the UID and save the record
+    def generate_uid
+      if self.id && !self.uid
+        self.uid = "app-#{self.id}"
+        App.update_all({uid:self.uid}, {id: self.id})
       end
       return true
     end
