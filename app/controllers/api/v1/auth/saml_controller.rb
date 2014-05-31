@@ -17,7 +17,7 @@ class Api::V1::Auth::SamlController < SamlIdp::IdpController
         self.render_user_selection_page
       end
     else
-      render text: "Wrong API token"
+      render text: "Wrong APP ID! The API app_id parameter is likely to be misconfigured."
     end
   end
   
