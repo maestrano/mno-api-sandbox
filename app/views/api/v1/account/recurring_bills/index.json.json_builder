@@ -11,4 +11,7 @@ array @recurring_bills do |recurring_bill|
   period recurring_bill.period
   frequency recurring_bill.frequency
   cycles recurring_bill.cycles
+  last_execution_at nil
+  next_execution_at recurring_bill.start_date
+  remaining_cycles recurring_bill.cycles
 end
