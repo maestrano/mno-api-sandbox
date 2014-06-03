@@ -25,7 +25,7 @@ class RecurringBill < ActiveRecord::Base
   # Constants
   #===================================
   ACCEPTED_CURRENCIES = Money::Currency.table.keys.map { |k| k.to_s.upcase }
-  ACCEPTED_PERIODS = %w(day week semimonth month year)
+  ACCEPTED_PERIODS = %w(month day week semimonth year)
   STATUSES = %w( pending active cancelled expired )
   
   #===================================
