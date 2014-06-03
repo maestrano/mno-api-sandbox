@@ -1,5 +1,5 @@
 if @bill
-  object "account_#{@bill.class.to_s.downcase}"
+  object "account_#{@bill.class.to_s.underscore}"
   id @bill.uid
   group_id @bill.group.uid
   created_at @bill.created_at
