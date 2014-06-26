@@ -53,7 +53,7 @@ class Api::V1::Account::RecurringBillsController < Api::V1::BaseController
   
   # DELETE /api/v1/account/bills/bill-4s5d3
   def destroy
-    @recurring_bill = current_app.bills.find_by_uid(params[:id])
+    @recurring_bill = current_app.recurring_bills.find_by_uid(params[:id])
     
     if @recurring_bill
       @recurring_bill.cancel!

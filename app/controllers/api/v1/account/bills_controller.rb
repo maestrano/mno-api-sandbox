@@ -26,7 +26,6 @@ class Api::V1::Account::BillsController < Api::V1::BaseController
   def create
     # Prepare attributes
     whitelist = ['group_id','price_cents','description','units','currency']
-    puts params
     attributes = params.select { |k,v| whitelist.include?(k.to_s) }
     attributes.symbolize_keys!
     
