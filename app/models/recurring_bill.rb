@@ -106,6 +106,7 @@ class RecurringBill < ActiveRecord::Base
       self.start_date ||= Time.now
       self.frequency ||= 1
       self.currency = 'AUD' if self.currency.blank?
+      self.initial_cents ||= 0
     end
     
     # Intialize the UID and save the record
