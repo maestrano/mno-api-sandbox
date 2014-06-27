@@ -3,6 +3,7 @@ if @recurring_bill
   id @recurring_bill.uid
   group_id @recurring_bill.group.uid
   created_at @recurring_bill.created_at
+  updated_at @recurring_bill.updated_at
   price_cents @recurring_bill.price_cents
   status @recurring_bill.status
   currency @recurring_bill.currency
@@ -11,6 +12,7 @@ if @recurring_bill
   period @recurring_bill.period
   frequency @recurring_bill.frequency
   cycles @recurring_bill.cycles
+  initial_cents @recurring_bill.initial_cents
   last_execution_at nil
   next_execution_at @recurring_bill.start_date
   remaining_cycles @recurring_bill.cycles

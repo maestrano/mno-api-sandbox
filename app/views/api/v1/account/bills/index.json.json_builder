@@ -3,6 +3,7 @@ array @bills do |bill|
   id bill.uid
   group_id bill.group.uid
   created_at bill.created_at
+  updated_at bill.updated_at
   price_cents bill.price_cents
   status bill.status
   currency bill.currency
