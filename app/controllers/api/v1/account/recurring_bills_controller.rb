@@ -45,6 +45,7 @@ class Api::V1::Account::RecurringBillsController < Api::V1::BaseController
     
     # Render
     if @errors.empty?
+      @recurring_bill.setup!
       render template: 'api/v1/account/recurring_bills/show'
     else
       render template: 'api/v1/base/empty', status: :bad_request
