@@ -48,6 +48,7 @@ class RecurringBill < ActiveRecord::Base
   # Associations
   #============================================
   belongs_to :group
+  has_many :recurring_bills
   
   #===================================
   # Status methods
@@ -68,6 +69,26 @@ class RecurringBill < ActiveRecord::Base
     return true if self.cancelled?
     
     self.status = 'cancelled'
+    self.save
+  end
+  
+  def setup!
+    return false if self.setup_at
+    
+    # Create initial bill
+    if self.initial_cents && self.initial_cents > 0
+      # Create the bill
+      bill = Bill.create({
+        group_id: self.group_id,
+        price_cents: self.initial_cents,
+        currency: self.currency,
+        description: "Initial: #{self.description}",
+        recurring_bill: self,
+      })
+    end
+    
+    # Flag the bill as setup
+    self.setup_at = Time.now.utc
     self.save
   end
   

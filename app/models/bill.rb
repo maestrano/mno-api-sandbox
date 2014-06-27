@@ -39,6 +39,7 @@ class Bill < ActiveRecord::Base
   #============================================
   before_validation :set_default_values
   after_create :generate_uid
+  belongs_to :recurring_bill
   
   #============================================
   # Associations
