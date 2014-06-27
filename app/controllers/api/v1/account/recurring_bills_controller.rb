@@ -26,7 +26,7 @@ class Api::V1::Account::RecurringBillsController < Api::V1::BaseController
   # ( => currency - valid three letter code - default: AUD)
   def create
     # Prepare attributes
-    whitelist = ['group_id','price_cents','description','currency', 'period', 'frequency', 'cycles', 'start_date']
+    whitelist = ['group_id','period','frequency','cycles','price_cents','description','currency','start_date','initial_cents']
     puts params
     attributes = params.select { |k,v| whitelist.include?(k.to_s) }
     attributes.symbolize_keys!
