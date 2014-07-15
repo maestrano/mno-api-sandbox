@@ -22,6 +22,7 @@ class App < ActiveRecord::Base
   # Callbacks
   #============================================
   after_create :generate_api_token
+  after_create :generate_uid
   
   #============================================
   # Associations
