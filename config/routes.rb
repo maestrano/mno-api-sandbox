@@ -36,6 +36,8 @@ MnoApiSandbox::Application.routes.draw do
       namespace :account do
         resources :bills, only: [:index, :show, :create, :destroy]
         resources :recurring_bills, only: [:index, :show, :create, :destroy]
+        resources :groups, only: [:index, :show]
+        resources :users, only: [:index, :show]
       end
     end
   end

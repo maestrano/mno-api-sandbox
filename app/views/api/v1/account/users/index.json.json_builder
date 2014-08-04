@@ -1,0 +1,12 @@
+array @entities do |entity|
+  object 'account_user'
+  id entity.uid
+  name entity.name
+  surname entity.surname
+  email entity.email
+  company_name entity.company
+  country entity.geo_country_code
+  sso_session entity.sso_session
+  created_at entity.created_at
+  updated_at entity.updated_at
+end

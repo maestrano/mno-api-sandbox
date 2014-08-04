@@ -1,0 +1,8 @@
+if @entity
+  object 'account_group'
+  id @entity.uid
+  created_at @entity.created_at
+  updated_at @entity.updated_at
+  has_credit_card true
+  status "running"
+end
