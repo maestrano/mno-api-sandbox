@@ -13,5 +13,7 @@
     = f.text_field :email, placeholder: "Email"
     = f.select :geo_country_code, Country::Data.map { |k,v| [v['name'], k] }.sort { |a,b| a[0] <=> b[0] }, {:prompt => '- Country -'}
   .control-group
+    = f.text_field :company, placeholder: "Company"
+  .control-group
     .pull-right
       = f.submit 'Save!', class: 'btn btn-primary'

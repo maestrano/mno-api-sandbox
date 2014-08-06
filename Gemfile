@@ -1,39 +1,48 @@
 source 'https://rubygems.org'
 
+gem 'rake'
 gem 'rails', '3.2.19'
 gem 'jquery-rails'
-gem 'haml-rails', '0.3.4'
+gem 'haml-rails'
+gem 'sprockets'
 gem 'money'
 gem 'countries'
+gem 'ruby-saml'
 gem 'ruby-saml-idp'
 gem 'json_builder'
 gem 'pg'
 
 # Javascript runtime environment
-gem "therubyracer", '>= 0.12.0', :require => 'v8'
+gem 'therubyracer'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'coffee-rails'
   gem "less-rails"
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'uglifier', '>= 1.0.3'
+  gem 'sass-rails'
+  gem 'uglifier'
   gem 'twitter-bootstrap-rails'
 end
 
 group :test do
-  gem 'rspec'
   gem 'webrat'
-  gem "factory_girl_rails", "~> 3.0"
+  gem 'factory_girl_rails'
 end
 
-group :development do
+group :development, :test do
+  gem 'rspec'
   gem 'rspec-rails'
-  gem 'faker', '0.3.1'
-  gem 'syntax', '1.0.0'
-  gem 'annotate', '2.4.1.beta1'
+  gem 'capybara'
+
+  gem 'faker'
+  gem 'syntax'
+  gem 'annotate'
   gem 'sqlite3'
+  gem 'database_cleaner'
+
+  gem 'maestrano'
+  gem 'nokogiri'
 end
 
 #ruby "1.9.2"
