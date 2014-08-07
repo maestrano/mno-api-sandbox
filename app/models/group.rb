@@ -12,7 +12,7 @@
 #
 
 class Group < ActiveRecord::Base
-  attr_accessible :name, :app_id
+  attr_accessible :name, :app, :app_id
   
   #============================================
   # Callbacks
