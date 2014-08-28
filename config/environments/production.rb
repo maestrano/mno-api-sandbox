@@ -60,9 +60,6 @@ MnoApiSandbox::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-  
-  # Do not initalize during precompilation
-  config.assets.initialize_on_precompile = false
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
