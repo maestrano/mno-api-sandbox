@@ -45,6 +45,10 @@ group :development, :test do
   gem 'nokogiri'
 end
 
+group :production do
+  gem 'thin'  
+end
+
 #ruby "1.9.2"
 
 # To use ActiveModel has_secure_password
