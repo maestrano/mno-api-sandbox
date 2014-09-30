@@ -162,8 +162,13 @@ module Api
             
             # Add group metadata
             hash[:attributes][:group_uid] = group.uid
+            hash[:attributes][:group_name] = group.name
             hash[:attributes][:group_end_free_trial] = group.free_trial_end_at.utc.iso8601
             hash[:attributes][:group_role] = nil
+            hash[:attributes][:group_has_credit_card] = false
+            hash[:attributes][:group_email] = "#{group.uid}@example.com"
+            hash[:attributes][:group_currency] = 'USD'
+            hash[:attributes][:group_timezone] = 'America/Los_Angeles'
             
             # Add user metadata
             hash[:attributes][:uid] = user.uid
