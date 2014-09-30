@@ -169,6 +169,8 @@ module Api
             hash[:attributes][:group_email] = "#{group.uid}@example.com"
             hash[:attributes][:group_currency] = 'USD'
             hash[:attributes][:group_timezone] = 'America/Los_Angeles'
+            hash[:attributes][:group_country] = 'US'
+            hash[:attributes][:group_city] = 'Los Angeles'
             
             # Add user metadata
             hash[:attributes][:uid] = user.uid
