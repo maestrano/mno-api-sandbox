@@ -31,6 +31,7 @@ class Api::V1::BaseController < ApplicationController
     # using the classical API response format
     def prepare_and_handle_error
       @errors = {}
+      logger.info("INSPECT: current_app => " + current_app)
       begin
         yield
       rescue Exception => e
@@ -58,8 +59,15 @@ class Api::V1::BaseController < ApplicationController
     def app_from_basic_authentication
       returned_app = nil
       authenticate_with_http_basic do |app_id, api_token|
+        creds = { id: app_id, key: api_token}
+        logger.info("INSPECT: credentials => #{creds}")
         returned_app = App.find_by_uid_and_api_token(app_id,api_token)
       end
+      
+      if request.env["HTTP_AUTHORIZATION"].blank?
+        logger.info("INSPECT: credentials => none")
+      end
+      
       returned_app
     end
     

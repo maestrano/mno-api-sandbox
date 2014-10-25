@@ -3,6 +3,8 @@ class Api::V1::Account::GroupsController < Api::V1::BaseController
   # GET /api/v1/account/groups
   def index
     @entities = current_app.groups
+    
+    logger.info("INSPECT: entities => #{@entities}")
   end
   
   # GET /api/v1/account/groups/cld-gf784154
@@ -11,7 +13,10 @@ class Api::V1::Account::GroupsController < Api::V1::BaseController
     
     if !@entity
       @errors[:id] = ["does not exist"]
+      logger.error(@errors)
     end
+    
+    logger.info("INSPECT: entity => #{@entity}")
   end
   
 end

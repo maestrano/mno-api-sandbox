@@ -3,6 +3,8 @@ class Api::V1::Account::BillsController < Api::V1::BaseController
   # GET /api/v1/account/bills
   def index
     @bills = current_app.bills
+    
+    logger.info("INSPECT: entities => #{@bills}")
   end
   
   # GET /api/v1/account/bills/bill-4s5d3
@@ -11,7 +13,10 @@ class Api::V1::Account::BillsController < Api::V1::BaseController
     
     if !@bill
       @errors[:id] = ["does not exist"]
+      logger.error(@errors)
     end
+    
+    logger.info("INSPECT: entity => #{@bill}")
   end
   
   # POST /api/v1/account/bills
@@ -29,6 +34,8 @@ class Api::V1::Account::BillsController < Api::V1::BaseController
     attributes = params.select { |k,v| whitelist.include?(k.to_s) }
     attributes.symbolize_keys!
     
+    logger.info("INSPECT: creation attributes => #{attributes}")
+    
     # Find Group
     group = current_app.groups.find_by_uid(attributes.delete(:group_id))
     
@@ -43,8 +50,10 @@ class Api::V1::Account::BillsController < Api::V1::BaseController
     
     # Render
     if @errors.empty?
+      logger.info("INSPECT: created entity => #{@bill}")
       render template: 'api/v1/account/bills/show'
     else
+      logger.error(@errors)
       render template: 'api/v1/base/empty', status: :bad_request
     end
   end
@@ -62,8 +71,10 @@ class Api::V1::Account::BillsController < Api::V1::BaseController
     
     # Render
     if @errors.empty?
+      logger.info("INSPECT: entity => #{@bill}")
       render template: 'api/v1/account/bills/show'
     else
+      logger.error(@errors)
       render template: 'api/v1/base/empty', status: :bad_request
     end
   end

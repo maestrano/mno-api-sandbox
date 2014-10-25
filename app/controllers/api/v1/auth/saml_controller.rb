@@ -11,18 +11,29 @@ module Api
 
         # GET /api/v1/auth/saml
         def index
-          if !@saml_issuer_id.blank? && @app = App.find_by_uid(@saml_issuer_id)
-            
-            # if a user_uid is selected then proceed to SSO response
-            # Otherwise ask user to select a system user to login with
-            user_uid = (params[:user_uid] || session[:current_user])
-            if !user_uid.blank? && @current_user = User.find_by_uid(user_uid)
-              self.handle_cloud_stack_sso
+          begin
+            if !@saml_issuer_id.blank? && @app = App.find_by_uid(@saml_issuer_id)
+              logger.info("INSPECT: app => #{@app}")
+              
+              # if a user_uid is selected then proceed to SSO response
+              # Otherwise ask user to select a system user to login with
+              user_uid = (params[:user_uid] || session[:current_user])
+              logger.info("INSPECT: user UID => #{user_uid}")
+              
+              if !user_uid.blank? && @current_user = User.find_by_uid(user_uid)
+                logger.info("INSPECT: user => #{@current_user}")
+                self.handle_cloud_stack_sso
+              else
+                self.render_user_selection_page
+              end
             else
-              self.render_user_selection_page
+              msg = "Wrong APP ID! The API app_id parameter is likely to be misconfigured."
+              logger.error(msg)
+              render text: msg
             end
-          else
-            render text: "Wrong APP ID! The API app_id parameter is likely to be misconfigured."
+          rescue Exception => e
+            logger.error(e)
+            raise e 
           end
         end
         
@@ -31,23 +42,30 @@ module Api
         # GET /api/v1/auth/saml/usr-xyz.cld-g4fd53?session=f15s34g10f5dh4fg35jh3fg14jhg8
         # GET /api/v1/auth/saml/usr-xyz.cld-g4fd53@appmail.maestrano.com?session=f15s34g10f5dh4fg35jh3f
         def show
-          if m = params[:id].match(/([^\.]+)/)
-            uid = m.captures.first
-          else
-            uid = params[:id]
+          begin
+            if m = params[:id].match(/([^\.]+)/)
+              uid = m.captures.first
+            else
+              uid = params[:id]
+            end
+            sso_session = params[:session]
+          
+            # Check if session is valid
+            @valid_session = (!uid.blank? && !sso_session.blank? && User.where(uid:uid,sso_session:sso_session).count > 0)
+          
+            # Build response
+            response_hash = {
+              valid: @valid_session,
+              recheck: 3.minutes.from_now.utc
+            }
+            
+            logger.info("INSPECT: session_hash => #{response_hash}")
+            
+            render json: response_hash
+          rescue Exception => e
+            logger.error(e)
+            raise e
           end
-          sso_session = params[:session]
-          
-          # Check if session is valid
-          @valid_session = (!uid.blank? && !sso_session.blank? && User.where(uid:uid,sso_session:sso_session).count > 0)
-          
-          # Build response
-          response_hash = {
-            valid: @valid_session,
-            recheck: 3.minutes.from_now.utc
-          }
-
-          render json: response_hash
         end
 
         protected
