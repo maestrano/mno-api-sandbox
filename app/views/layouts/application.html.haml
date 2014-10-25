@@ -26,8 +26,15 @@
               %a{href: users_path } Users
             %li{ class: @section == 'sso' && 'active' }
               %a{href: sso_path } Single Sign-On
-            %li{ class: @section == 'billing' && 'active' }
-              %a{href: bills_path } Billing API
+            %li.dropdown{ class: @section == 'billing' && 'active' }
+              %a.dropdown-toggle{href: "#", 'data-toggle' => "dropdown", 'data-target' => "#"} 
+                Billing API
+                %b.caret
+              %ul.dropdown-menu
+                %li
+                  %a{ href: bills_path } Bills
+                %li
+                  %a{ href: recurring_bills_path } Recurring Bills
             %li{ class: @section == 'logs' && 'active' }
               %a{href: logs_path } API Logs
       .row
