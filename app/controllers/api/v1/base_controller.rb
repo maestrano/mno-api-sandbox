@@ -20,6 +20,7 @@ class Api::V1::BaseController < ApplicationController
     def authenticate_app!
       unless app_signed_in?
         @errors = {authentication: ["Invalid API token"]}
+        logger.error(@errors)
         render template: 'api/v1/base/empty', status: :unauthorized
       end
     end
@@ -33,7 +34,7 @@ class Api::V1::BaseController < ApplicationController
       begin
         yield
       rescue Exception => e
-        logger.error e
+        logger.error(e)
         @errors = {} # reinitialize the errors variable to hide internal errors
         @errors[:system] = ["A system error occured. Please retry later or contact support@maestrano.com if the issue persists."]
         render template: 'api/v1/base/empty', status: :internal_server_error
