@@ -2,6 +2,9 @@ module LogsHelper
   
   def parse_log_line(line)
     line
+      .gsub(/^\s+CACHE\s+\(.*\n/,"")
+      .gsub(/^.*SELECT\s+.*\n/,"")
+      .gsub(/^\s+SQL\s+\(.*\n/,"")
       .gsub("\n","<br/>")
       .gsub(/\[\d+m/,'')
       .gsub(/^(\s)+/,"&nbsp;&nbsp;nbsp;nbsp;nbsp;nbsp;")
