@@ -1,0 +1,13 @@
+.row
+  .span12
+    
+    .align-center
+      %b The page below show the last 100 line of logs 
+      %br
+      (top lines are the most recent ones)
+    .spacer1
+
+    %table.table.table-striped
+      - @logs.each do |line|
+        %tr
+          %td!= parse_log_line(line)
