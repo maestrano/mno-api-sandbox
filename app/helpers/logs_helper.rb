@@ -4,7 +4,11 @@ module LogsHelper
     line
       .gsub(/^\s*CACHE\s+\(.*\n/,"")
       .gsub(/^.*SELECT\s+.*\n/,"")
-      .gsub(/^\s*SQL\s+\(.*\n/,"")
+      .gsub(/^.*BEGIN\s+.*\n/,"")
+      .gsub(/^.*COMMIT\s+.*\n/,"")
+      .gsub(/^.*INSERT\s+.*\n/,"")
+      .gsub(/^.*UPDATE\s+.*\n/,"")
+      .gsub(/^.*DELETE\s+.*\n/,"")
       .gsub("\n","<br/>")
       .gsub(/\[\d+m/,'')
       .gsub(/^(\s)+/,"&nbsp;&nbsp;nbsp;nbsp;nbsp;nbsp;")
