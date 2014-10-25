@@ -8,12 +8,13 @@ class LogsController < ApplicationController
   # GET /logs
   def index
     @logs = []
-    if File.exist?("tmp/#{Rails.env}.log")
-      content = File.read("tmp/#{Rails.env}.log").encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
-    
-      content.split(/\n{2,}/).each do |line|
-        next unless line =~ /\/api/i
+    file = Rails.env.production? ? "tmp/#{Rails.env}.log" : "log/#{Rails.env}.log"
+    if File.exist?(file)
+      content = File.read(file).encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
       
+      content.split(/(?=Started|Served|Connecting.*$)/).each do |line|
+        next unless line =~ /\/api/i
+        line.gsub!(/\n+$/,'')
         @logs.unshift(line)
       end
       @logs = @logs[0..100]
