@@ -1,3 +1,17 @@
+class MultiIO
+  def initialize(*targets)
+     @targets = targets
+  end
+
+  def write(*args)
+    @targets.each {|t| t.write(*args)}
+  end
+
+  def close
+    @targets.each(&:close)
+  end
+end
+
 MnoApiSandbox::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -37,7 +51,7 @@ MnoApiSandbox::Application.configure do
   # config.log_tags = [ :subdomain, :uuid ]
 
   # Use a different logger for distributed setups
-  # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
+  config.logger = Logger.new MultiIO.new(STDOUT, "logs/#{production.log}")
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
