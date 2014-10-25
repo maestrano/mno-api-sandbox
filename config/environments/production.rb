@@ -51,7 +51,7 @@ MnoApiSandbox::Application.configure do
   # config.log_tags = [ :subdomain, :uuid ]
 
   # Use a different logger for distributed setups
-  f = File.open("log/production.log", "a+")
+  f = File.open("tmp/production.log", "a+")
   config.logger = Logger.new MultiIO.new(STDOUT, f)
 
   # Use a different cache store in production
