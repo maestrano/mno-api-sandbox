@@ -53,6 +53,7 @@ MnoApiSandbox::Application.configure do
   # Use a different logger for distributed setups
   f = File.open("tmp/production.log", "a+")
   config.logger = Logger.new MultiIO.new(STDOUT, f)
+  config.logger.auto_flushing = true
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
