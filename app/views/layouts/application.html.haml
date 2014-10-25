@@ -27,7 +27,7 @@
             %li{ class: @section == 'sso' && 'active' }
               %a{href: sso_path } Single Sign-On
             %li{ class: @section == 'billing' && 'active' }
-              %a{href: "#"} Billing API
+              %a{href: bills_path } Billing API
       .row
         .span6.offset3
           - if flash[:notice]
