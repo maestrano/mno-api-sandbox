@@ -1,6 +1,10 @@
 class LogsController < ApplicationController
   include LogsHelper
   
+  before_filter do
+    @section = 'logs'
+  end
+  
   # GET /logs
   def index
     @logs = []

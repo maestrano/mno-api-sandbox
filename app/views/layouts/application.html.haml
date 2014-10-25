@@ -28,6 +28,8 @@
               %a{href: sso_path } Single Sign-On
             %li{ class: @section == 'billing' && 'active' }
               %a{href: bills_path } Billing API
+            %li{ class: @section == 'logs' && 'active' }
+              %a{href: logs_path } API Logs
       .row
         .span6.offset3
           - if flash[:notice]
