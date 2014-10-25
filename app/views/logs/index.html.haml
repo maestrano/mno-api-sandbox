@@ -2,12 +2,17 @@
   .span12
     
     .align-center
-      %b The page below show the last 100 lines of logs 
+      %b Below are the last 100 lines of logs 
       %br
       (top lines are the most recent ones)
     .spacer1
-
+    
+    
     %table.table.table-striped
-      - @logs.each do |line|
+      - if @logs.empty?
         %tr
-          %td!= parse_log_line(line)
+          %td No logs to display
+      - else
+        - @logs.each do |line|
+          %tr
+            %td!= parse_log_line(line)
