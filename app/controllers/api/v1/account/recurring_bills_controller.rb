@@ -4,7 +4,7 @@ class Api::V1::Account::RecurringBillsController < Api::V1::BaseController
   def index
     @recurring_bills = current_app.recurring_bills
     
-    logger.info("INSPECT: entities => #{@recurring_bills}")
+    logger.info("INSPECT: entities => #{@recurring_bills.to_json}")
   end
   
   # GET /api/v1/account/bills/bill-4s5d3
@@ -16,7 +16,7 @@ class Api::V1::Account::RecurringBillsController < Api::V1::BaseController
       logger.error(@errors)
     end
     
-    logger.info("INSPECT: entity => #{@recurring_bill}")
+    logger.info("INSPECT: entity => #{@recurring_bill.to_json}")
   end
   
   # POST /api/v1/account/bills
@@ -52,7 +52,7 @@ class Api::V1::Account::RecurringBillsController < Api::V1::BaseController
     # Render
     if @errors.empty?
       @recurring_bill.setup!
-      logger.info("INSPECT: created entity => #{@recurring_bill}")
+      logger.info("INSPECT: created entity => #{@recurring_bill.to_json}")
       render template: 'api/v1/account/recurring_bills/show'
     else
       logger.error(@errors)
@@ -73,7 +73,7 @@ class Api::V1::Account::RecurringBillsController < Api::V1::BaseController
     
     # Render
     if @errors.empty?
-      logger.info("INSPECT: entity => #{@recurring_bill}")
+      logger.info("INSPECT: entity => #{@recurring_bill.to_json}")
       render template: 'api/v1/account/recurring_bills/show'
     else
       logger.error(@errors)

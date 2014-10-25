@@ -31,7 +31,7 @@ class Api::V1::BaseController < ApplicationController
     # using the classical API response format
     def prepare_and_handle_error
       @errors = {}
-      logger.info("INSPECT: current_app => #{current_app}")
+      logger.info("INSPECT: current_app => #{current_app.to_json}")
       begin
         yield
       rescue Exception => e

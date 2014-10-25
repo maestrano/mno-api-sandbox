@@ -4,7 +4,7 @@ class Api::V1::Account::UsersController < Api::V1::BaseController
   def index
     @entities = current_app.users
     
-    logger.info("INSPECT: entities => #{@entities}")
+    logger.info("INSPECT: entities => #{@entities.to_json}")
   end
   
   # GET /api/v1/account/users/usr-gf784154
@@ -16,6 +16,6 @@ class Api::V1::Account::UsersController < Api::V1::BaseController
       logger.error(@errors)
     end
     
-    logger.info("INSPECT: entity => #{@entity}")
+    logger.info("INSPECT: entity => #{@entity.to_json}")
   end
 end

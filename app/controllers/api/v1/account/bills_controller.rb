@@ -4,7 +4,7 @@ class Api::V1::Account::BillsController < Api::V1::BaseController
   def index
     @bills = current_app.bills
     
-    logger.info("INSPECT: entities => #{@bills}")
+    logger.info("INSPECT: entities => #{@bills.to_json}")
   end
   
   # GET /api/v1/account/bills/bill-4s5d3
@@ -16,7 +16,7 @@ class Api::V1::Account::BillsController < Api::V1::BaseController
       logger.error(@errors)
     end
     
-    logger.info("INSPECT: entity => #{@bill}")
+    logger.info("INSPECT: entity => #{@bill.to_json}")
   end
   
   # POST /api/v1/account/bills
@@ -50,7 +50,7 @@ class Api::V1::Account::BillsController < Api::V1::BaseController
     
     # Render
     if @errors.empty?
-      logger.info("INSPECT: created entity => #{@bill}")
+      logger.info("INSPECT: created entity => #{@bill.to_json}")
       render template: 'api/v1/account/bills/show'
     else
       logger.error(@errors)
@@ -71,7 +71,7 @@ class Api::V1::Account::BillsController < Api::V1::BaseController
     
     # Render
     if @errors.empty?
-      logger.info("INSPECT: entity => #{@bill}")
+      logger.info("INSPECT: entity => #{@bill.to_json}")
       render template: 'api/v1/account/bills/show'
     else
       logger.error(@errors)

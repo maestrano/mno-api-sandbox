@@ -4,7 +4,7 @@ class Api::V1::Account::GroupsController < Api::V1::BaseController
   def index
     @entities = current_app.groups
     
-    logger.info("INSPECT: entities => #{@entities}")
+    logger.info("INSPECT: entities => #{@entities.to_json}")
   end
   
   # GET /api/v1/account/groups/cld-gf784154
@@ -16,7 +16,7 @@ class Api::V1::Account::GroupsController < Api::V1::BaseController
       logger.error(@errors)
     end
     
-    logger.info("INSPECT: entity => #{@entity}")
+    logger.info("INSPECT: entity => #{@entity.to_json}")
   end
   
 end

@@ -13,7 +13,7 @@ module Api
         def index
           begin
             if !@saml_issuer_id.blank? && @app = App.find_by_uid(@saml_issuer_id)
-              logger.info("INSPECT: app => #{@app}")
+              logger.info("INSPECT: app => #{@app.to_json}")
               
               # if a user_uid is selected then proceed to SSO response
               # Otherwise ask user to select a system user to login with
@@ -21,7 +21,7 @@ module Api
               logger.info("INSPECT: user UID => #{user_uid}")
               
               if !user_uid.blank? && @current_user = User.find_by_uid(user_uid)
-                logger.info("INSPECT: user => #{@current_user}")
+                logger.info("INSPECT: user => #{@current_user.to_json}")
                 self.handle_cloud_stack_sso
               else
                 self.render_user_selection_page
