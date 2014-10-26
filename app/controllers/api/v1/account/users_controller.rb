@@ -2,7 +2,16 @@ class Api::V1::Account::UsersController < Api::V1::BaseController
   
   # GET /api/v1/account/users
   def index
-    @entities = current_app.users
+    @entities = []
+    parent = current_app
+    
+    if (gid = params.delete(:group_id))
+      parent = current_app.groups.find_by_uid(gid)
+    end
+    
+    if parent
+      @entities = parent.users.with_param_filters(params)
+    end
     
     logger.info("INSPECT: entities => #{@entities.to_json}")
   end

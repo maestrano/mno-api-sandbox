@@ -2,7 +2,7 @@ class Api::V1::Account::GroupsController < Api::V1::BaseController
   
   # GET /api/v1/account/groups
   def index
-    @entities = current_app.groups
+    @entities = current_app.groups.with_param_filters(params)
     
     logger.info("INSPECT: entities => #{@entities.to_json}")
   end

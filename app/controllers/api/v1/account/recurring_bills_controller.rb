@@ -2,7 +2,16 @@ class Api::V1::Account::RecurringBillsController < Api::V1::BaseController
   
   # GET /api/v1/account/bills
   def index
-    @recurring_bills = current_app.recurring_bills
+    @recurring_bills = []
+    parent = current_app
+    
+    if (gid = params.delete(:group_id))
+      parent = current_app.groups.find_by_uid(gid)
+    end
+    
+    if parent
+      @recurring_bills = parent.recurring_bills.with_param_filters(params)
+    end
     
     logger.info("INSPECT: entities => #{@recurring_bills.to_json}")
   end
