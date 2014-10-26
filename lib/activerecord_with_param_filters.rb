@@ -44,6 +44,9 @@ module WithParamFilters
     sql_chain = []
     sql_values = []
     params.each do |param,value|
+      # Skip param if hash
+      next if value.kind_of?(Hash)
+      
       real_param = param.dup
       real_str_op = "="
       
