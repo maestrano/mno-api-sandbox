@@ -41,6 +41,6 @@ class Group < ActiveRecord::Base
     
     # Set the end of the free trial based
     def setup_free_trial
-      self.free_trial_end_at = Time.now + 1.month
+      self.free_trial_end_at = (Time.now + 1.month).utc
     end
 end
