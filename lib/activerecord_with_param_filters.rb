@@ -25,6 +25,10 @@ module WithParamFilters
   #
   # Take in argument a hash of params and an optional whitelist 
   # of allowed attributes
+  #
+  # If one of the attributes is absent from the whitelist or
+  # the list of columns then an empty resultset is returned
+  #
   def with_param_filters(params = {}, whitelist = nil)
     return where(nil) unless params.any?
     
@@ -61,6 +65,8 @@ module WithParamFilters
         end
         
         sql_values.push(real_value)
+      else
+        return where("1 = 2")
       end
     end
     
