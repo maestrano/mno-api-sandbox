@@ -33,7 +33,7 @@ module WithParamFilters
     return where(nil) unless params.any?
     
     # Populate whitelist
-    params = params.stringify_keys
+    params = params.stringify_keys.except('action', 'controller')
     tbl = self.klass.table_name
     cols = self.klass.column_names
     whitelist = self.klass.column_names unless whitelist
