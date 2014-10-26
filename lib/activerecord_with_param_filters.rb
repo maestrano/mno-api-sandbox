@@ -40,20 +40,26 @@ module WithParamFilters
     sql_chain = []
     sql_values = []
     params.each do |param,value|
+      real_param = param.dup
+      real_str_op = "="
+      
       WITH_PARAMS_MAPPING.each do |str_op,math_op|
-        real_param = param.dup
         if real_param.gsub!(str_op,'')
-          if whitelist.include?(real_param) && cols.include?(real_param)
-            sql_chain.push("#{tbl}.#{real_param} #{math_op} ?")
-            sql_values.push(value)
-          end
+          real_str_op = str_op
           break
         end
       end
       
       if whitelist.include?(param) && cols.include?(param)
-        sql_chain.push("#{tbl}.#{param} = ?")
-        sql_values.push(value)
+        sql_chain.push("#{tbl}.#{param} #{math_op} ?")
+        
+        real_value = value
+        # Automatically parse iso8601 dates
+        if real_value =~ /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/
+          Time.iso8601(real_value).utc
+        end
+        
+        sql_values.push(real_value)
       end
     end
     
