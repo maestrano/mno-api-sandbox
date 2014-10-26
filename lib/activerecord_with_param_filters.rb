@@ -43,9 +43,10 @@ module WithParamFilters
       real_param = param.dup
       real_str_op = "="
       
-      WITH_PARAMS_MAPPING.each do |str_op,math_op|
+      # Sort to get longest string first
+      WITH_PARAMS_MAPPING.keys.sort { |a,b| b.length <=> a.length }.each do |str_op|
         if real_param.gsub!(str_op,'')
-          real_str_op = math_op
+          real_str_op = WITH_PARAMS_MAPPING[str_op]
           break
         end
       end
