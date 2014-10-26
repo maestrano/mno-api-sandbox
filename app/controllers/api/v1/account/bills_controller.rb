@@ -2,7 +2,16 @@ class Api::V1::Account::BillsController < Api::V1::BaseController
   
   # GET /api/v1/account/bills
   def index
-    @bills = current_app.bills
+    @bills = []
+    parent = current_app
+    
+    if (gid = params.delete(:group_id))
+      parent = current_app.groups.find_by_uid(gid)
+    end
+    
+    if parent
+      @bills = parent.bills.with_param_filters(params)
+    end
     
     logger.info("INSPECT: entities => #{@bills.to_json}")
   end
