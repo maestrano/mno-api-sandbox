@@ -1,3 +1,15 @@
+.row{ style: "margin-top: -40px;"}
+  .span12
+    .alert.alert-info.alert-block
+      %h4 A metadata endpoint on my app?
+      %br
+      You have configured the Maestrano API (Java, .NET, Ruby, ...) in your app via initializer or config file and it's looking good. Great! But need to know about it. Of course we could propose a long and boring form on maestrano.com for you to fill all these details (especially the webhooks) but we thought it would be more convenient to fetch that automatically.
+      %br
+      %br
+      For that we expect you to create a metadata endpoint that we can fetch regularly (or when you press 'refresh metadata' in your maestrano cloud partner dashboard). By default we assume that it will be located at <your_website>/maestrano/metadata(.json)
+      %br
+      %br
+      Note that you don't want that endpoint to be visible to anyone. Maestrano always uses http basic authentication to contact your service remotely. The login/password used for this authentication are your actual api.id and api.key.
 .row
   .span10.offset1
     %hr
