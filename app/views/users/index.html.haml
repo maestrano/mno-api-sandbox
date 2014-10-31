@@ -48,6 +48,7 @@
 
     %table.table.table-striped.table-bordered
       %tr
+        %th
         %th UID
         %th Name
         %th Surname
@@ -61,6 +62,7 @@
 
       - @users.each do |user|
         %tr
+          %td= link_to "json", api_v1_account_user_path(user.uid, format: :json, noauth:true), target: '_blank'
           %td= user.uid
           %td= user.name
           %td= user.surname

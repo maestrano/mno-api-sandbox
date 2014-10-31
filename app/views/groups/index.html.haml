@@ -41,6 +41,7 @@
 
     %table.table.table-striped.table-bordered
       %tr
+        %th
         %th Name
         %th UID
         %th Using App
@@ -50,6 +51,7 @@
 
       - @groups.each do |group|
         %tr
+          %td= link_to "json", api_v1_account_group_path(group.uid, format: :json, noauth:true), target: '_blank'
           %td= group.name
           %td= group.uid
           %td= group.app.name

@@ -17,6 +17,7 @@
 
     %table.table.table-striped.table-bordered
       %tr
+        %th 
         %th UID
         %th Cents
         %th Currency
@@ -30,6 +31,7 @@
 
       - @bills.each do |bill|
         %tr
+          %td= link_to "json", api_v1_account_bill_path(bill.uid, format: :json, noauth:true), target: '_blank'
           %td= bill.uid
           %td= bill.price_cents
           %td= bill.currency
