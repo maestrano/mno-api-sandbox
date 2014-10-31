@@ -23,16 +23,23 @@
 .row
   .span10.offset1
     .well
-      %h3 Part 1 - Getting setup on the Sandbox
+      %h4 Part 1 - Getting setup on the Sandbox
       %ol
         %li= link_to "Create a test application to retrieve your test API token", apps_path
+        %li= link_to "Test your metadata endpoint", metadata_path
+      
+      .spacer1
+      
+      %h4 Part 2 - Enabling Single Sign-On 
+      %ol
         %li= link_to "Create one or several groups of users", groups_path
         %li= link_to "Add some users to your group(s)", users_path
-        
+        %li= link_to "Simulate a Single Sign-On handshake", sso_path
+      
       .spacer1
-      %h3 Part 2 - Testing the APIs
+      
+      %h4 Part 3 - Playing with the Account APIs
       %ol
-        %li= link_to "Single Sign-On - Simulate a user login to your service via Maestrano", sso_path
         %li= link_to "Billing API - Test customer billing via Maestrano", bills_path
         %li= link_to "Recurring Billing API - Test customer recurring billing via Maestrano", recurring_bills_path
         
