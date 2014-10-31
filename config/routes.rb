@@ -15,6 +15,7 @@ MnoApiSandbox::Application.routes.draw do
   resources :groups
   resources :group_user_rels
   resources :logs, only: [:index]
+  resources :metadata
   
   resources :users do
     member do

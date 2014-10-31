@@ -1,0 +1,106 @@
+.row
+  .span10.offset1
+    %hr
+    .align-center
+      %b Enter your App metadata endpoint and credentials
+      %br
+      %br
+      = form_tag(metadata_path) do
+        = text_field_tag :meta_url, @meta_url, placeholder: 'App ID', class: 'input-xxlarge'
+        %br
+        .muted
+          %small 
+            %em Select one of the test apps or enter your app id and api key manually
+        = select_tag(:app, options_from_collection_for_select(@apps, "uid", "name"))
+        %span &nbsp; or &nbsp;
+        = text_field_tag :app_id, @app_id, placeholder: 'App ID'
+        = text_field_tag :api_key, @api_key, placeholder: 'API Key'
+        %br
+        %br
+        %div
+          = submit_tag 'Fetch Metadata!', class: 'btn btn-primary btn-large'
+    %hr
+    
+.row
+  - if @errors.any?
+    .alert.alert-error{ 'data-dismiss' => 'alert' }
+      %button.close ×
+      %p= @errors[:description]
+    %div
+      - @errors[:details].each do |error|
+        %p= error.to_json
+        
+        
+- if @metadata.any?
+  .row
+    .span10.offset1.align-center
+      %h4 Metadata we managed to read from your service
+
+  .row
+    .span10.offset1.align-center
+      %div{ style: "width: 400px;margin:auto;text-align:left;"}
+        - @metadata['api'] ||= {}
+        %h5 API Bindings
+        %form.form-centered.form-large
+          .control-group
+            .controls
+              .input-prepend
+                %span.add-on Language
+                %input{:disabled => "true", "value" => @metadata['api']['lang'], :type => "text"}
+          .control-group
+            .controls
+              .input-prepend
+                %span.add-on Lang Version
+                %input{:disabled => "true", "value" => @metadata['api']['lang_version'], :type => "text"}
+          .control-group
+            .controls
+              .input-prepend
+                %span.add-on API Version
+                %input{:disabled => "true", "value" => @metadata['api']['version'], :type => "text"}
+          .control-group
+            .controls
+              .input-prepend
+                %span.add-on Environment
+                %input{:disabled => "true", "value" =>@metadata['environment'], :type => "text"}
+    
+    
+        - @metadata['sso'] ||= {}
+        %h5 Single Sign-On
+        %form.form-centered.form-large
+          .control-group
+            .controls
+              .input-prepend
+                %span.add-on IDM
+                %input{:disabled => "true", "value" => @metadata['sso']['idm'], :type => "text"}
+          .control-group
+            .controls
+              .input-prepend
+                %span.add-on Init Path
+                %input{:disabled => "true", "value" => @metadata['sso']['init_path'], :type => "text"}/
+          .control-group
+            .controls
+              .input-prepend
+                %span.add-on Consume Path
+                %input{:disabled => "true", "value" => @metadata['sso']['consume_path'], :type => "text"}
+    
+    
+        - @metadata['webhook'] ||= {}
+        - @metadata['webhook']['account'] ||= {}
+        %h5 Webhooks
+        %form.form-centered.form-large
+          .control-group
+            .controls
+              .input-prepend
+                %span.add-on Group
+                %input{:disabled => "true", "value" => @metadata['webhook']['account']['groups_path'], :type => "text"}/
+          .control-group
+            .controls
+              .input-prepend
+                %span.add-on Group > Users
+                %input{:disabled => "true", "value" => @metadata['webhook']['account']['group_users_path'], :type => "text"}
+                
+                
+  .row
+    .span10.offset1
+      %h4 Raw Response
+      %p= @raw_metadata.to_json
