@@ -32,6 +32,15 @@ class App < ActiveRecord::Base
   has_many :recurring_bills, through: :groups
   has_many :users, through: :groups
   
+  def self.identify(app_id,api_token,group_id)
+    app = self.find_by_uid_and_api_token(app_id,api_token)
+    if app.groups.where(uid: group_id).any?
+      return app
+    else
+      return nil
+    end
+  end
+  
   private
     # Intialize the api_token
     def generate_api_token

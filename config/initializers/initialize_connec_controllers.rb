@@ -1,0 +1,1 @@
+Connec::Api::V2::BaseApiController.generate_controllers

@@ -12,7 +12,7 @@
 #
 
 class ConnecEntity < ActiveRecord::Base
-  attr_accessible :document, :uid
+  attr_accessible :group_id, :entity_name, :document
   
   #============================================
   # Validation rules

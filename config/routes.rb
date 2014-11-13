@@ -44,6 +44,30 @@ MnoApiSandbox::Application.routes.draw do
     end
   end
   
+  
+  #================================================
+  # Connec API > V2 > Entities
+  #================================================
+  # URLs like: 
+  # /api/v2/items
+  # /api/v2/items/:id
+  #
+  namespace :connec do
+    namespace :api do
+      resources :v2, constraints: {id: /[^\/]+/}, as: 'group', only:[] do
+        [
+          "Account", "Invoice", "Item", "Organization", "Person", "Project","TaxCode","TaxRate"
+        ].each do |class_name|
+          resource_name = class_name.underscore.pluralize
+          resources resource_name.to_sym, controller: "v2/#{resource_name}", only: [:index, :show, :create, :update, :delete]
+        end
+      
+        resource :company, controller: 'v2/company', only: [:show,:create,:update]
+      end
+    end
+  end
+  
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
