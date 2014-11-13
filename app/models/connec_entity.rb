@@ -18,6 +18,7 @@ class ConnecEntity < ActiveRecord::Base
   # Validation rules
   #============================================
   validates :group_id, presence: true
+  validates :entity_name, presence: true
   
   #============================================
   # Callbacks
