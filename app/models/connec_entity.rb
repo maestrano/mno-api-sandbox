@@ -7,6 +7,7 @@
 #  document   :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  group_id   :string(255)
 #
 
 class ConnecEntity < ActiveRecord::Base
