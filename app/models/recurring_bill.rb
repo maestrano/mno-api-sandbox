@@ -2,19 +2,21 @@
 #
 # Table name: recurring_bills
 #
-#  id          :integer         not null, primary key
-#  uid         :string(255)
-#  period      :string(255)
-#  frequency   :integer
-#  cycles      :integer
-#  start_date  :datetime
-#  description :string(255)
-#  status      :string(255)
-#  price_cents :integer
-#  currency    :string(255)
-#  group_id    :integer(255)
-#  created_at  :datetime        not null
-#  updated_at  :datetime        not null
+#  id            :integer          not null, primary key
+#  uid           :string(255)
+#  period        :string(255)
+#  frequency     :integer
+#  cycles        :integer
+#  start_date    :datetime
+#  description   :string(255)
+#  status        :string(255)
+#  price_cents   :integer
+#  currency      :string(255)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  group_id      :integer
+#  initial_cents :integer
+#  setup_at      :datetime
 #
 
 class RecurringBill < ActiveRecord::Base
