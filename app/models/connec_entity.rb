@@ -2,12 +2,13 @@
 #
 # Table name: connec_entities
 #
-#  id         :integer          not null, primary key
-#  uid        :string(255)
-#  document   :text
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  group_id   :string(255)
+#  id          :integer          not null, primary key
+#  uid         :string(255)
+#  document    :text
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  group_id    :string(255)
+#  entity_name :string(255)
 #
 
 class ConnecEntity < ActiveRecord::Base
