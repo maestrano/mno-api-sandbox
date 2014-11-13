@@ -12,6 +12,7 @@ gem 'ruby-saml-idp'
 gem 'json_builder'
 gem 'pg'
 gem 'httparty'
+gem 'uuid'
 
 # Javascript runtime environment
 gem 'therubyracer'
