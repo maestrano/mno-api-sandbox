@@ -25,7 +25,13 @@ class Connec::Api::V2::BaseApiController < ApplicationController
   # POST /connec/api/v2/[group_id]/[entity_type]
   def create
     # Upsert the entity
-    entity = ConnecEntity.create(group_id: @group_id, entity_name: self.class.entity_class_name, document: params[:entity])
+    if params[:entity] && params[:entity][:id]
+      entity = ConnecEntity.where(group_id: @group_id, entity_name: self.class.entity_class_name, uid: params[:entity][:id]).first
+    end
+    entity ||= ConnecEntity.new(group_id: @group_id, entity_name: self.class.entity_class_name)
+    
+    entity.document = (entity.document || {}).merge(params[:entity])
+    entity.save
     
     logger.info("INSPECT: entity => #{entity_hash(entity).to_json}")
     
@@ -34,15 +40,10 @@ class Connec::Api::V2::BaseApiController < ApplicationController
 
   # PUT /connec/api/v2/[group_id]/[entity_type]/:id
   def update
-    entity = ConnecEntity.where(group_id: @group_id, entity_name: self.class.entity_class_name, uid: params[:id]).first
+    params[:entity] ||= {}
+    params[:entity].merge(id: params[:id])
     
-    if entity
-      entity.update_attribute(:document,params[:entity])
-    end
-    
-    logger.info("INSPECT: entity => #{entity_hash(entity).to_json}")
-    
-    render json: { entity: entity_hash(entity) }
+    create
   end
   
   private

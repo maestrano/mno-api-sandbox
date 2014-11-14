@@ -17,7 +17,7 @@ class Connec::Api::V2::CompanyController < Connec::Api::V2::BaseApiController
   # POST /v1/:group_id/company
   def create
     # Upsert the entity
-    group_company.update_attribute(:document,params[:entity])
+    group_company.document = (group_company.document || {}).merge(params[:entity])
     
     logger.info("INSPECT: entity => #{entity_hash(group_company).to_json}")
     
@@ -27,7 +27,8 @@ class Connec::Api::V2::CompanyController < Connec::Api::V2::BaseApiController
   # PUT /v1/:group_id/company
   def update
     # Merge id
-    params[:entity].merge!(id: params[:id])
+    params[:entity] ||= {}
+    params[:entity].merge(id: params[:id])
     
     # Call create
     create
