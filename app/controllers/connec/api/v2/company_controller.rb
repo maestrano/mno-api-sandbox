@@ -18,6 +18,7 @@ class Connec::Api::V2::CompanyController < Connec::Api::V2::BaseApiController
   def create
     # Upsert the entity
     group_company.document = (group_company.document || {}).merge(params[:entity])
+    group_company.save
     
     logger.info("INSPECT: entity => #{entity_hash(group_company).to_json}")
     
