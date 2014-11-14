@@ -40,7 +40,7 @@ class Connec::Api::V2::CompanyController < Connec::Api::V2::BaseApiController
   #==========================================================
   private
     def group_company
-      @group_company = begin
+      @group_company ||= begin
         company = ConnecEntity.where(entity_name: 'company',group_id: @group_id).first
         unless company
           company = ConnecEntity.create(entity_name: 'company',group_id: @group_id, document: {currency: 'USD'})
