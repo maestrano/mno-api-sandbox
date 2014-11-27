@@ -6,7 +6,7 @@ class Connec::Api::V2::BaseApiController < ApplicationController
   # GET /connec/api/v2/[group_id]/[entity_type]
   def index
     entities = ConnecEntity.where(group_id: @group_id, entity_name: self.class.entity_class_name)
-    entities_json = entities.map { |e| entity_hash(e.document) }
+    entities_json = entities.map { |e| entity_hash(e) }
     
     logger.info("INSPECT: entities => #{entities_json.to_json}")
     
