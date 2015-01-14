@@ -269,6 +269,6 @@ private
   
   # Return the url to a resource
   def resource_url(resource)
-    api_v2_resource_url(@group_id, entities_key,resource)
+    connec_api_v2_resource_url(@group_id, entities_key,resource)
   end
 end
