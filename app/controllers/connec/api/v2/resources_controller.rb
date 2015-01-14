@@ -233,28 +233,6 @@ private
   # Expect an array of error descriptions and 
   # a http code (defaulted to "Bad Request")
   def process_errors(errors, http_code = 400, entity = nil)
-    # Bubble up errors from embedded documents into the root document
-    if entity
-      entity.embedded_relations.each do |name, metadata|
-        # find errors on embedded documents
-        if entity.errors[name]
-          # loop through each element of the relation (single or collection)
-          [entity.send(name)].flatten.compact.each_with_index do |rel, i|
-            # add error to parent document
-            if rel.errors.any?
-              rel.errors.messages.each do |k, v|
-                key = (entity.send(name).is_a?(Array) ? "#{name}[#{i}].#{k}" : "#{name}.#{k}").to_sym
-                entity.errors.delete(key)
-                entity.errors[key] = v
-                entity.errors[key].flatten!
-              end
-            end
-          end
-        end
-      end
-      errors = entity.errors.full_messages
-    end
- 
     errors.map do |error|
       {
         id: UUID.new.generate,
