@@ -233,7 +233,7 @@ private
   # Expect an array of error descriptions and 
   # a http code (defaulted to "Bad Request")
   def process_errors(errors, http_code = 400, entity = nil)
-    errors.map do |error|
+    err_list = errors.map do |error|
       {
         id: UUID.new.generate,
         href: @resource_name ? resource_action_documentation_url : nil,
@@ -243,6 +243,9 @@ private
         detail: error
       }
     end
+    logger.info("INSPECT: errors => #{err_list.to_json}")
+    
+    return err_list
   end
   
   # TODO: put doco_url in Settings
