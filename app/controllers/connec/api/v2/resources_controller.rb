@@ -42,9 +42,8 @@ class Connec::Api::V2::ResourcesController < ApplicationController
       entity = ConnecEntity.where(group_id: @group_id, entity_name: entities_key, uid: params[:id]).first
     end
     
-    logger.info("INSPECT: #{entities_key} => #{process_entity(entity).to_json}")
-    
     if entity
+      logger.info("INSPECT: #{entities_key} => #{process_entity(entity).to_json}")
       render json: { entities_key => process_entity(entity) }
     else
       render json: { errors: process_errors(["Resource not found"], 404) }, status: :not_found
@@ -64,9 +63,8 @@ class Connec::Api::V2::ResourcesController < ApplicationController
     entity.document = (entity.document || {}).merge(params[entities_key])
     entity.save
     
-    logger.info("INSPECT: #{entities_key} => #{process_entity(entity).to_json}")
-    
     if entity && entity.errors.empty?
+      logger.info("INSPECT: #{entities_key} => #{process_entity(entity).to_json}")
       render json: { entities_key => process_entity(entity.reload) }, status: :created, location: resource_url(entity)
     else
       render json: { errors: process_errors(entity.errors.full_messages, 400, entity) }, status: :bad_request
@@ -86,10 +84,9 @@ class Connec::Api::V2::ResourcesController < ApplicationController
     
     entity.document = (entity.document || {}).merge(params[entities_key])
     
-    logger.info("INSPECT: #{entities_key} => #{process_entity(entity).to_json}")
-    
     if entity
       if entity.save
+        logger.info("INSPECT: #{entities_key} => #{process_entity(entity.reload).to_json}")
         render json: { entities_key => process_entity(entity.reload) }
       else
         render json: { errors: process_errors(entity.errors.full_messages, 400, entity) }, status: :bad_request
