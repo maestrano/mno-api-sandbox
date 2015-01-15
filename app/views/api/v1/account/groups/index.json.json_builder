@@ -5,4 +5,12 @@ array @entities do |entity|
   updated_at entity.updated_at
   has_credit_card true
   status "running"
+  
+  name entity.name
+  free_trial_end_at entity.free_trial_end_at.utc.iso8601
+  email "#{group.uid}@example.com"
+  currency 'USD'
+  timezone 'America/Los_Angeles'
+  country 'US'
+  city 'Los Angeles'
 end
