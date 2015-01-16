@@ -3,12 +3,12 @@ favicon-touch.png: favicon-touch-2d42f32671448097e6f58c025672e188.png
 favicon-touch/index.png: favicon-touch-2d42f32671448097e6f58c025672e188.png
 favicon.ico: favicon-85ca04ef47174bc6b93077d2e7dfdc58.ico
 favicon/index.ico: favicon-85ca04ef47174bc6b93077d2e7dfdc58.ico
-sandbox_logo.png: sandbox_logo-85b246ce19409c5c361c81d9a73f14d7.png
-sandbox_logo/index.png: sandbox_logo-85b246ce19409c5c361c81d9a73f14d7.png
+sandbox_logo.png: sandbox_logo-1b1574f7f2e9d2465f9fc17b4b750a6d.png
+sandbox_logo/index.png: sandbox_logo-1b1574f7f2e9d2465f9fc17b4b750a6d.png
 application.js: application-f357dd775129612011562ca7b5d7301e.js
 application/index.js: application-f357dd775129612011562ca7b5d7301e.js
-application.css: application-338a7be4c40dba5937fbafe0ba2be402.css
-application/index.css: application-338a7be4c40dba5937fbafe0ba2be402.css
+application.css: application-cc5042259f81e6c7783d7375f2b92a87.css
+application/index.css: application-cc5042259f81e6c7783d7375f2b92a87.css
 fontawesome-webfont.eot: fontawesome-webfont-009f6d1f667cc42c25e712ab3429cbc7.eot
 fontawesome-webfont/index.eot: fontawesome-webfont-009f6d1f667cc42c25e712ab3429cbc7.eot
 fontawesome-webfont.svg: fontawesome-webfont-f1c2889911d212e1403b68eabc1a3a56.svg
