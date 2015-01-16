@@ -17,8 +17,9 @@
       %p 
         %b Currently the Sandbox allows you to test the following:
       %ul
-        %li User/Group subscription via Single Sign-On
-        %li Billing API
+        %li Single Sign-On / Service provisioning
+        %li Single Billing API
+        %li Connec!™ (playground mode only - HTTP API only)
       
 .row
   .span10.offset1
@@ -42,6 +43,10 @@
       %ol
         %li= link_to "Billing API - Test customer billing via Maestrano", bills_path
         %li= link_to "Recurring Billing API - Test customer recurring billing via Maestrano", recurring_bills_path
+      
+      %h4 Part 4 - Play with the Connec!™ APIs
+        %li= link_to "Read more about Connec!™ endpoints in the RESTful documentation", "http://maestrano.github.io/connec"
+        %li Start making requests (dedicated page to come)
         
         
         
