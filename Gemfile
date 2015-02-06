@@ -16,6 +16,7 @@ gem 'uuid'
 
 # Javascript runtime environment
 gem 'therubyracer'
+gem 'encryptor'
 
 # Gems used only for assets and not required
 # in production environments by default.
