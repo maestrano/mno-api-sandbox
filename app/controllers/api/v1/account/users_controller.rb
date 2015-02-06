@@ -38,6 +38,8 @@ class Api::V1::Account::UsersController < Api::V1::BaseController
       user = User.find_by_email(params[:email])
     end
     
+    logger.info("INSPECT: user => #{user.to_json}")
+    
     # Decrypt password
     begin
       iv_64, enc_pwd_64 = params[:password].split("--")
@@ -47,8 +49,10 @@ class Api::V1::Account::UsersController < Api::V1::BaseController
     end
     
     if user && decrypted_pw && decrypted_pw != "invalid_password"
+      logger.info("INSPECT: password considered valid")
       @entity = user
     else
+      logger.error("INSPECT: password considered invalid")
       @errors[:password] = ["invalid password or non existing user"]
     end
     
