@@ -39,7 +39,9 @@ MnoApiSandbox::Application.routes.draw do
         resources :bills, only: [:index, :show, :create, :destroy]
         resources :recurring_bills, only: [:index, :show, :create, :destroy]
         resources :groups, only: [:index, :show]
-        resources :users, only: [:index, :show]
+        resources :users, only: [:index, :show] do
+          post :authenticate, on: :collection
+        end
       end
     end
   end

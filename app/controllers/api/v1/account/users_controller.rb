@@ -27,4 +27,23 @@ class Api::V1::Account::UsersController < Api::V1::BaseController
     
     logger.info("INSPECT: entity => #{@entity.to_json}")
   end
+  
+  # POST /api/v1/account/users/authenticate
+  # Simulate invalid password by passing "invalid_password" as a
+  # password
+  def authenticate
+    if params[:id]
+      user = User.find_by_uid(params[:id])
+    elsif params[:email]
+      user = User.find_by_email(params[:email])
+    end
+    
+    if user && params[:password] != "invalid_password"
+      @entity = user
+    else
+      @errors[:password] = ["invalid password or non existing user"]
+    end
+    
+    render 'show'
+  end
 end
