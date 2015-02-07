@@ -44,7 +44,8 @@ class Api::V1::Account::UsersController < Api::V1::BaseController
     begin
       iv_64, enc_pwd_64 = params[:password].split("--")
       decrypted_pw = Encryptor.decrypt(Base64.decode64(enc_pwd_64), key: current_app.api_token, iv: Base64.decode64(iv_64))
-    rescue
+    rescue OpenSSL::Cipher::CipherError => e
+      logger.error("INSPECT: decrypt error: #{e}")
       decrypted_pw = nil
     end
     
