@@ -33,9 +33,9 @@ class Api::V1::Account::UsersController < Api::V1::BaseController
   # password
   def authenticate
     if params[:id]
-      user = User.find_by_uid(params[:id])
+      user = current_app.users.find_by_uid(params[:id])
     elsif params[:email]
-      user = User.find_by_email(params[:email])
+      user = current_app.users.find_by_email(params[:email])
     end
     
     logger.info("INSPECT: user => #{user.to_json}")
