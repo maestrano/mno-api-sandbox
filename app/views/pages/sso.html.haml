@@ -2,10 +2,17 @@
   .span10.offset1
     %hr
     .align-center
-      %b Enter your SSO initialization endpoint
+      %b Enter your SSO initialization endpoint (either SAML or OpenID)
     .spacer1
     .align-center
       %input{ type: "text", id: "sso_init_endpoint_master", value: @sso_init_endpoint, class:"input-xxlarge"}
+.row
+  .span6.offset3
+    .alert.alert-success.small
+      %small
+        %strong Familiar with Intuit/QuickBooks integration?
+        %br
+        The SSO initialization endpoint is equivalent to Intuit's TryBuy link.
     %hr
       
 .spacer1   
