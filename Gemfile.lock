@@ -14,6 +14,9 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
+    active_record_openid_store (0.1.5)
+      activerecord (~> 3.0)
+      ruby-openid (~> 2.1)
     activemodel (3.2.19)
       activesupport (= 3.2.19)
       builder (~> 3.0.0)
@@ -161,6 +164,7 @@ GEM
       rspec-mocks (~> 3.0.0)
       rspec-support (~> 3.0.0)
     rspec-support (3.0.3)
+    ruby-openid (2.7.0)
     ruby-saml (0.8.1)
       nokogiri (>= 1.5.0)
       uuid (~> 2.3)
@@ -213,6 +217,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_record_openid_store
   annotate
   capybara
   coffee-rails
@@ -234,6 +239,7 @@ DEPENDENCIES
   rake
   rspec
   rspec-rails
+  ruby-openid
   ruby-saml
   ruby-saml-idp
   sass-rails

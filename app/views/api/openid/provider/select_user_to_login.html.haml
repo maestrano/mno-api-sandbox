@@ -1,0 +1,72 @@
+.row{ style: "margin-top: -40px;"}
+  .span12
+    .alert.alert-info.alert-block
+      %h4 Why do I need to select a user?
+      %br
+      This step is actually not part of the normal SSO process flow. When SSO is triggered users
+      are supposed to be logged in to Maestrano already. If they are not then they are required to sign in.
+      %br
+      %br
+      Here we give you the choice of the user so you can test different SSO scenarios:
+      %ul 
+        %li 
+          user which 
+          %b has not 
+          been given access to your app
+        %li 
+          user which has been given access to your app 
+          %b via one group only
+        %li 
+          user which has been given access to your app 
+          %b via two or more groups
+        
+      %br
+      %br
+      Keep in mind that you can always create more groups and users if you need to test more scenarios!
+
+.spacer2
+
+.row
+  - if current_user
+    .span12
+      .align-center
+        %p 
+          You are currently logged in as 
+          = "#{current_user.name} #{current_user.surname}"
+        %div.align-center
+          = link_to 'Continue with this user!', @open_id_replay[current_user.id][:url], class: 'btn btn-info'
+        %hr
+        %br
+        
+  .span12
+    .align-center
+      %b Select a user to login with
+    .spacer1
+
+    %table.table.table-striped.table-bordered
+      %tr
+        %th UID
+        %th Name
+        %th Surname
+        %th Email
+        %th Access
+        %th
+
+      - @users.each do |user|
+        %tr
+          %td= user.uid
+          %td= user.name
+          %td= user.surname
+          %td= user.email
+          %td
+            - if @open_id_replay[user.id][:access]
+              User has been given access to your app via
+              %b
+                = @open_id_replay[user.id][:access_count]
+                group(s)
+            - else
+              User has 
+              %b not been given access
+          %td= link_to 'Login with this user', @open_id_replay[user.id][:url]
+
+    %br

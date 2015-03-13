@@ -25,6 +25,20 @@ MnoApiSandbox::Application.routes.draw do
   
   # API Routes
   namespace :api do
+    # OpenID Provider
+    namespace :openid do
+      resources :provider, only: [:show] do        
+        member do
+          post :/, to: 'provider#show'
+          get :decide
+          get :proceed
+          get :complete
+        end
+        
+        resources :users, only: [:show]
+      end
+    end
+    
     namespace :v1 do
       # Base - Ping action
       get 'ping', to: 'base#ping'

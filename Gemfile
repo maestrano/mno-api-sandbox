@@ -18,6 +18,10 @@ gem 'uuid'
 gem 'therubyracer'
 gem 'encryptor'
 
+# OpenID client + server
+gem 'ruby-openid'
+gem 'active_record_openid_store'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

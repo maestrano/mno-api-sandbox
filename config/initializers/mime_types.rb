@@ -6,3 +6,6 @@
 
 Mime::Type.register "application/vnd.api+json", :json_api
 ActionDispatch::ParamsParser::DEFAULT_PARSERS[Mime::JSON_API] = -> body { JSON.parse body }
+
+# OpenID Yadis Discovery mime type
+Mime::Type.register "application/xrds+xml", :xrds
