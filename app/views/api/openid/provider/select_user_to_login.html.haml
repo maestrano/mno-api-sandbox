@@ -45,33 +45,19 @@
         
   .span12
     .align-center
-      %b Select a user to login with
+      %h4 Select a user to login with
     .spacer1
-
-    %table.table.table-striped.table-bordered
-      %tr
-        %th UID
-        %th Name
-        %th Surname
-        %th Email
-        %th Access
-        %th
-
-      - @users.each do |user|
-        %tr
-          %td= user.uid
-          %td= user.name
-          %td= user.surname
-          %td= user.email
-          %td
-            - if @open_id_replay[user.id][:access]
-              User has been given access to your app via
-              %b
-                = @open_id_replay[user.id][:access_count]
-                group(s)
-            - else
-              User has 
-              %b not been given access
-          %td= link_to 'Login with this user', @open_id_replay[user.id][:url]
+    
+    .align-center
+      %p The following users have been granted access
+      
+      = render partial: 'user_access_list', locals: { users: @users.select { |e| e[:access] }, open_id_replay: @open_id_replay }
+    
+    %br
+    
+    .align-center
+      %p The following users have NOT been granted access
+      
+      = render partial: 'user_access_list', locals: { users: @users.select { |e| !e[:access] }, open_id_replay: @open_id_replay }
 
     %br
