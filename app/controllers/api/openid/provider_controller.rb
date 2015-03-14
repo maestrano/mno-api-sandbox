@@ -117,7 +117,7 @@ class Api::Openid::ProviderController < Api::Openid::BaseController
       @open_id_replay[user.id][:access] = false
       @open_id_replay[user.id][:access_count] = 0
       user.groups.each do |group|
-        if (group.app == @app)
+        if (group.app == current_app)
           @open_id_replay[user.id][:access] =true
           @open_id_replay[user.id][:access_count] += 1
         end
@@ -239,7 +239,6 @@ class Api::Openid::ProviderController < Api::Openid::BaseController
       reset_session
       request = save_checkid_request
       session[:previous_url] = proceed_api_openid_provider_path(consumer_id)
-      #redirect_to new_user_session_path(ltype:'sso')
       self.render_user_selection_page
     end
   end

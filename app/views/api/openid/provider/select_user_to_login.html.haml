@@ -33,6 +33,11 @@
         %p 
           You are currently logged in as 
           = "#{current_user.name} #{current_user.surname}"
+        %p
+          %small
+            %em
+              = @open_id_replay[current_user.id][:access] ? "This user has been granted access" : "This user has NOT been granted access"
+        
         %div.align-center
           = link_to 'Continue with this user!', @open_id_replay[current_user.id][:url], class: 'btn btn-info'
         %hr
