@@ -107,24 +107,24 @@ class Api::Openid::ProviderController < Api::Openid::BaseController
   def render_user_selection_page
     @users = User.all
     
-    # Build SAML replay url for each user
-    @open_id_replay = {}
+    # Build auth replay url for each user
+    @replay = {}
     
     @users.each do |user|
-      @open_id_replay[user.id] = {}
-      @open_id_replay[user.id][:url] = "#{proceed_api_openid_provider_path(user_uid: user.uid)}"
+      @replay[user.id] = {}
+      @replay[user.id][:url] = "#{proceed_api_openid_provider_path(user_uid: user.uid)}"
       
-      @open_id_replay[user.id][:access] = false
-      @open_id_replay[user.id][:access_count] = 0
+      @replay[user.id][:access] = false
+      @replay[user.id][:access_count] = 0
       user.groups.each do |group|
         if (group.app == current_app)
-          @open_id_replay[user.id][:access] =true
-          @open_id_replay[user.id][:access_count] += 1
+          @replay[user.id][:access] =true
+          @replay[user.id][:access_count] += 1
         end
       end
     end
     
-    render template: "api/openid/provider/select_user_to_login", layout: 'application'
+    render template: "shared/auth/select_user_to_login", layout: 'application'
   end
   
   
@@ -156,7 +156,7 @@ class Api::Openid::ProviderController < Api::Openid::BaseController
       
       # User - Location
       'type.u_country'       => 'http://openid.net/schema/contact/country/home',
-      'value.u_country'      => 'US',
+      'value.u_country'      => user.geo_country_code,
       'type.u_city'          => 'http://openid.net/schema/contact/city/home',
       'value.u_city'         => 'Los Angeles',
       'type.u_tz'            => 'http://openid.net/schema/timezone',

@@ -20,12 +20,12 @@
       %td= user.surname
       %td= user.email
       %td
-        - if open_id_replay[user.id][:access]
+        - if replay[user.id][:access]
           User has been given access to your app via
           %b
-            = open_id_replay[user.id][:access_count]
+            = replay[user.id][:access_count]
             group(s)
         - else
           User has 
           %b not been given access
-      %td= link_to 'Login with this user', open_id_replay[user.id][:url]
+      %td= link_to 'Login with this user', replay[user.id][:url]

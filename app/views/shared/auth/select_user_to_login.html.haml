@@ -36,10 +36,10 @@
         %p
           %small
             %em
-              = @open_id_replay[current_user.id][:access] ? "This user has been granted access" : "This user has NOT been granted access"
+              = @replay[current_user.id][:access] ? "This user has been granted access" : "This user has NOT been granted access"
         
         %div.align-center
-          = link_to 'Continue with this user!', @open_id_replay[current_user.id][:url], class: 'btn btn-info'
+          = link_to 'Continue with this user!', @replay[current_user.id][:url], class: 'btn btn-info'
         %hr
         %br
         
@@ -51,13 +51,13 @@
     .align-center
       %p The following users have been granted access
       
-      = render partial: 'user_access_list', locals: { users: @users.select { |e| e[:access] }, open_id_replay: @open_id_replay }
+      = render partial: 'shared/auth/user_access_list', locals: { users: @users.select { |u| @replay[u.id][:access] }, replay: @replay }
     
     %br
     
     .align-center
       %p The following users have NOT been granted access
       
-      = render partial: 'user_access_list', locals: { users: @users.select { |e| !e[:access] }, open_id_replay: @open_id_replay }
+      = render partial: 'shared/auth/user_access_list', locals: { users: @users.select { |u| !@replay[u.id][:access] }, replay: @replay }
 
     %br
