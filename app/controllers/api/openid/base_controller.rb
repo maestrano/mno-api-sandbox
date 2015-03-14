@@ -5,6 +5,7 @@ require 'openid/extensions/pape'
 require 'openid/extensions/ax'
 
 class Api::Openid::BaseController < ActionController::Base
+  include ApplicationHelper
   protect_from_forgery
   
   before_filter :check_valid_consumer!
