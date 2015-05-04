@@ -26,7 +26,7 @@ module Api
           context 'unauthenticated user' do
             subject { get :index, :SAMLRequest => saml_request }
             
-            it { expect(subject).to render_template('api/v1/auth/select_user_to_login') }
+            it { expect(subject).to render_template('shared/auth/select_user_to_login') }
           end
 
           context 'authenticated user' do
