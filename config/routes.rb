@@ -50,6 +50,11 @@ MnoApiSandbox::Application.routes.draw do
       
       # Billing API
       namespace :account do
+        match '/bills', :controller => 'bills', :action => 'cors_preflight_check', :constraints => {:method => 'OPTIONS'}
+        match '/recurring_bills', :controller => 'recurring_bills', :action => 'cors_preflight_check', :constraints => {:method => 'OPTIONS'}
+        match '/groups', :controller => 'groups', :action => 'cors_preflight_check', :constraints => {:method => 'OPTIONS'}
+        match '/users', :controller => 'users', :action => 'cors_preflight_check', :constraints => {:method => 'OPTIONS'}
+
         resources :bills, only: [:index, :show, :create, :destroy]
         resources :recurring_bills, only: [:index, :show, :create, :destroy]
         resources :groups, only: [:index, :show]

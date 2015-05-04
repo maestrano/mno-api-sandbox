@@ -5,7 +5,7 @@
 # The controller uses http basic authentication and
 # retrieves the app based on its api token
 class Api::V1::BaseController < ApplicationController
-  before_filter :authenticate_app!
+  before_filter :authenticate_app!, except: [:cors_preflight_check]
   around_filter :prepare_and_handle_error
 
   # Return CORS access
@@ -16,6 +16,23 @@ class Api::V1::BaseController < ApplicationController
   layout "api_v1"
   
   def ping
+  end
+
+  # For all responses in this controller, return the CORS access control headers.
+  def cors_set_access_control_headers
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
+    headers['Access-Control-Request-Method'] = '*'
+    headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  end
+
+  # If this is a preflight OPTIONS request, then short-circuit the
+  # request, return only the necessary headers and return an empty text/plain.
+  def cors_preflight_check
+    if request.method == :options
+      cors_set_access_control_headers
+      render text: ''
+    end
   end
   
   private
@@ -74,23 +91,6 @@ class Api::V1::BaseController < ApplicationController
       end
       
       returned_app
-    end
-
-    # For all responses in this controller, return the CORS access control headers.
-    def cors_set_access_control_headers
-      headers['Access-Control-Allow-Origin'] = '*'
-      headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
-      headers['Access-Control-Request-Method'] = '*'
-      headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-    end
-
-    # If this is a preflight OPTIONS request, then short-circuit the
-    # request, return only the necessary headers and return an empty text/plain.
-    def cors_preflight_check
-      if request.method == :options
-        cors_set_access_control_headers
-        render :text => '', :content_type => 'text/plain'
-      end
     end
     
 end
