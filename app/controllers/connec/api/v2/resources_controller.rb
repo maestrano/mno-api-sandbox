@@ -1,9 +1,12 @@
 class Connec::Api::V2::ResourcesController < ApplicationController
   skip_before_filter :verify_authenticity_token # no need for API endpoints
-  before_filter :authenticate_client_app!
+  before_filter :authenticate_client_app!, except: [:cors_preflight_check]
   before_filter :setup_request
   around_filter :wrap_in_api_transaction
   
+  # Return CORS headers
+  before_filter :cors_preflight_check
+  after_filter :cors_set_access_control_headers
   
   respond_to :json, :json_api
   
@@ -93,6 +96,23 @@ class Connec::Api::V2::ResourcesController < ApplicationController
       end
     else
       render json: { errors: process_errors(["Resource not found"], 404) }, status: :not_found
+    end
+  end
+
+  # For all responses in this controller, return the CORS access control headers.
+  def cors_set_access_control_headers
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
+    headers['Access-Control-Request-Method'] = '*'
+    headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  end
+
+  # If this is a preflight OPTIONS request, then short-circuit the
+  # request, return only the necessary headers and return an empty text/plain.
+  def cors_preflight_check
+    if request.method == :options
+      cors_set_access_control_headers
+      render text: ''
     end
   end
   

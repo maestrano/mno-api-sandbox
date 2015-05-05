@@ -8,7 +8,7 @@ class Api::V1::BaseController < ApplicationController
   before_filter :authenticate_app!, except: [:cors_preflight_check]
   around_filter :prepare_and_handle_error
 
-  # Return CORS access
+  # Return CORS headers
   before_filter :cors_preflight_check
   after_filter :cors_set_access_control_headers
   
