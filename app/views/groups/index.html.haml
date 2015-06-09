@@ -49,7 +49,7 @@
         %th
         %th
 
-      - @groups.each do |group|
+      - @groups.compact.each do |group|
         %tr
           %td= link_to "json", api_v1_account_group_path(group.uid, format: :json, noauth:true), target: '_blank'
           %td= group.name
