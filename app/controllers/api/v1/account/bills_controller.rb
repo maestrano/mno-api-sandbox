@@ -39,7 +39,7 @@ class Api::V1::Account::BillsController < Api::V1::BaseController
   # ( => currency - valid three letter code )
   def create
     # Prepare attributes
-    whitelist = ['group_id','price_cents','description','units','currency','period_started_at','period_ended_at']
+    whitelist = ['group_id','price_cents','description','units','currency','period_started_at','period_ended_at','third_party']
     attributes = params.select { |k,v| whitelist.include?(k.to_s) }
     attributes.symbolize_keys!
     
