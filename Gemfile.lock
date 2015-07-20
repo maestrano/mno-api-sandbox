@@ -79,6 +79,9 @@ GEM
       multi_json (~> 1.0)
       multi_xml (>= 0.5.2)
     i18n (0.6.11)
+    jbuilder (2.2.16)
+      activesupport (>= 3.0.0, < 5)
+      multi_json (~> 1.2)
     journey (1.0.4)
     jquery-rails (3.1.1)
       railties (>= 3.0, < 5.0)
@@ -228,6 +231,7 @@ DEPENDENCIES
   faker
   haml-rails
   httparty
+  jbuilder
   jquery-rails
   json_builder
   less-rails
