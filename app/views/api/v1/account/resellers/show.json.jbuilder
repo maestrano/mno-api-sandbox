@@ -1,0 +1,1 @@
+json.partial! 'entity', entity: @entity

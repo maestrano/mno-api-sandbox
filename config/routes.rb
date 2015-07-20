@@ -1,13 +1,13 @@
 MnoApiSandbox::Application.routes.draw do
-  
+
   # Static routes
   root to: "pages#index"
   get '/app_access_unauthorized', to: "pages#app_access_unauthorized"
   get '/app_logout', to: "pages#app_logout"
   get '/sso', to: "pages#sso"
   get '/sso_trigger', to: "pages#sso_trigger"
-  
-  
+
+
   # Resources
   resources :apps
   resources :bills
@@ -16,38 +16,38 @@ MnoApiSandbox::Application.routes.draw do
   resources :group_user_rels
   resources :logs, only: [:index]
   resources :metadata
-  
+
   resources :users do
     member do
       get 'regenerate_sso_session'
     end
   end
-  
+
   # API Routes
   namespace :api do
     # OpenID Provider
     namespace :openid do
-      resources :provider, only: [:show] do        
+      resources :provider, only: [:show] do
         member do
           post :/, to: 'provider#show'
           get :decide
           get :proceed
           get :complete
         end
-        
+
         resources :users, only: [:show]
       end
     end
-    
+
     namespace :v1 do
       # Base - Ping action
       get 'ping', to: 'base#ping'
-      
+
       # Auth API
       namespace :auth do
         resources :saml, only: [:index, :show]
       end
-      
+
       # Billing API
       namespace :account do
         match '/bills', :controller => 'bills', :action => 'cors_preflight_check', :constraints => {:method => 'OPTIONS'}
@@ -58,18 +58,22 @@ MnoApiSandbox::Application.routes.draw do
         resources :bills, only: [:index, :show, :create, :destroy]
         resources :recurring_bills, only: [:index, :show, :create, :destroy]
         resources :groups, only: [:index, :show]
+        resources :resellers, only: [:index, :show] do
+          resources :groups, only: [:index], controller: :reseller_groups
+        end
+
         resources :users, only: [:index, :show] do
           post :authenticate, on: :collection
         end
       end
     end
   end
-  
-  
+
+
   #================================================
   # Connec API > V2 > Entities
   #================================================
-  # URLs like: 
+  # URLs like:
   # /connec/api/v2/:group_id/items
   # /connec/api/v2/:group_id/items/:id
   #

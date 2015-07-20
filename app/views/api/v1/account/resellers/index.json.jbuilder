@@ -1,0 +1,1 @@
+json.array! @entities, partial: 'entity', as: :entity
