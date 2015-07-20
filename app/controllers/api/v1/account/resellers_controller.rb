@@ -3,7 +3,7 @@ class Api::V1::Account::ResellersController < Api::V1::BaseController
   # GET /api/v1/account/resellers
   def index
     @entities = [mocked_reseller]
-    logger.info("INSPECT: entities => #{@entities.to_h.to_json}")
+    logger.info("INSPECT: entities => #{@entities.map { |e| e.to_h }.to_json}")
   end
 
   # GET /api/v1/account/resellers/rsl-gf784154
