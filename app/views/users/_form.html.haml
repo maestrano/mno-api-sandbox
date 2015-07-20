@@ -5,13 +5,13 @@
       %ul
         - @user.errors.full_messages.each do |msg|
           %li= msg
-  
+
   .control-group
     = f.text_field :name, placeholder: "First Name"
     = f.text_field :surname, placeholder: "Last Name"
   .control-group
     = f.text_field :email, placeholder: "Email"
-    = f.select :geo_country_code, Country::Data.map { |k,v| [v['name'], k] }.sort { |a,b| a[0] <=> b[0] }, {:prompt => '- Country -'}
+    = f.select :geo_country_code, Country.all.sort { |a,b| a[0] <=> b[0] }, {:prompt => '- Country -'}
   .control-group
     = f.text_field :company, placeholder: "Company"
   .control-group
