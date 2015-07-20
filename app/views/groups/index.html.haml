@@ -54,7 +54,7 @@
           %td= link_to "json", api_v1_account_group_path(group.uid, format: :json, noauth:true), target: '_blank'
           %td= group.name
           %td= group.uid
-          %td= group.app.name
+          %td= group.app ? group.app.name : '-'
           %td= group.free_trial_end_at
           %td= link_to 'Show', group_path(group)
           %td= link_to 'Edit', edit_group_path(group)

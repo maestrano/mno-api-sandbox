@@ -11,4 +11,5 @@ array @bills do |bill|
   description bill.description
   period_started_at bill.period_started_at
   period_ended_at bill.period_ended_at
+  third_party bill.third_party?
 end

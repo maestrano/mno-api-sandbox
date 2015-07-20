@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150313064905) do
+ActiveRecord::Schema.define(:version => 20150625144857) do
 
   create_table "apps", :force => true do |t|
     t.string   "api_token"
@@ -30,10 +30,11 @@ ActiveRecord::Schema.define(:version => 20150313064905) do
     t.decimal  "units",             :precision => 10, :scale => 2
     t.datetime "period_started_at"
     t.datetime "period_ended_at"
-    t.datetime "created_at",                                       :null => false
-    t.datetime "updated_at",                                       :null => false
+    t.datetime "created_at",                                                          :null => false
+    t.datetime "updated_at",                                                          :null => false
     t.string   "status"
     t.integer  "recurring_bill_id"
+    t.boolean  "third_party",                                      :default => false
   end
 
   create_table "connec_entities", :force => true do |t|
