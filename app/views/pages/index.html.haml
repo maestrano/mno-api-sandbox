@@ -8,19 +8,19 @@
     .well
       %p Hi!
       %p Welcome to the Maestrano API Sandbox. The goal of this platform is to help you test the integration of the Maestrano APIs.
-      
-      %p 
+
+      %p
         The sandbox allows to customize your test environment (users/parameters/variables) and test different scenarios that would happen in production.
         %br
         %br
-      
-      %p 
+
+      %p
         %b Currently the Sandbox allows you to test the following:
       %ul
         %li Single Sign-On / Service provisioning
         %li Single Billing API
         %li Connec!™ (playground mode only - HTTP API only)
-      
+
 .row
   .span10.offset1
     .well
@@ -28,27 +28,25 @@
       %ol
         %li= link_to "Create a test application to retrieve your test API token", apps_path
         %li= link_to "Test your metadata endpoint", metadata_path
-      
+
       .spacer1
-      
-      %h4 Part 2 - Enabling Single Sign-On 
+
+      %h4 Part 2 - Enabling Single Sign-On
       %ol
         %li= link_to "Create one or several groups of users", groups_path
         %li= link_to "Add some users to your group(s)", users_path
         %li= link_to "Simulate a Single Sign-On handshake", sso_path
-      
+
       .spacer1
-      
-      %h4 Part 3 - Playing with the Account APIs
+
+      %h4 Part 3 - Play with the Account APIs
       %ol
         %li= link_to "Billing API - Test customer billing via Maestrano", bills_path
         %li= link_to "Recurring Billing API - Test customer recurring billing via Maestrano", recurring_bills_path
-      
+
+      .spacer1
+
       %h4 Part 4 - Play with the Connec!™ APIs
       %ol
-        %li= link_to "Read more about Connec!™ in our API documentation", "http://maestrano.github.io/connec", target: "_blank"
+        %li= link_to "Read more about the REST API", "http://maestrano.github.io/connec", target: "_blank"
         %li Start making requests (in progress - dedicated page to come)
-        
-        
-        
-        
