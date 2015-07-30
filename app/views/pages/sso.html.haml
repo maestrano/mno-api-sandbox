@@ -6,6 +6,7 @@
     .spacer1
     .align-center
       %input{ type: "text", id: "sso_init_endpoint_master", value: @sso_init_endpoint, class:"input-xxlarge"}
+
 .row
   .span6.offset3
     .alert.alert-success.small
@@ -14,11 +15,11 @@
         %br
         The SSO initialization endpoint is equivalent to Intuit's TryBuy link.
     %hr
-      
-.spacer1   
+
+.spacer1
 .row
   .span10.offset1
-    
+
     .align-center
       %b Select the user you want to login with
     .spacer1
@@ -40,7 +41,14 @@
               = form_tag(sso_trigger_path, method: 'get') do
                 = hidden_field_tag :sso_init_endpoint, @sso_init_endpoint
                 = hidden_field_tag :user_uid, user.uid
-                = select_tag(:group_id, options_from_collection_for_select(user.groups, "uid", "name"))
+                %div.pull-left
+                  = select_tag(:group_id, options_from_collection_for_select(user.groups, "uid", "name"))
+                %div.pull-left{ style: 'width: 20px;height: 1px;'}
+                %div.pull-left
+                  = check_box_tag 'reseller_sso'
+                  %span
+                    %small
+                      %b Login as reseller
                 %div.pull-right
                   = submit_tag 'Go!', class: 'btn btn-primary'
 
