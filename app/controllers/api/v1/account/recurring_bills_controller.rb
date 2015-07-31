@@ -1,33 +1,38 @@
 class Api::V1::Account::RecurringBillsController < Api::V1::BaseController
-  
+
   # GET /api/v1/account/bills
   def index
     @recurring_bills = []
     parent = current_app
-    
+
     if (gid = params.delete(:group_id))
       parent = current_app.groups.find_by_uid(gid)
     end
-    
+
     if parent
       @recurring_bills = parent.recurring_bills.with_param_filters(params)
     end
-    
+
     logger.info("INSPECT: entities => #{@recurring_bills.to_json}")
   end
-  
+
   # GET /api/v1/account/bills/bill-4s5d3
   def show
-    @recurring_bill = current_app.recurring_bills.find_by_uid(params[:id])
-    
+    if params[:noauth]
+      @recurring_bill = RecurringBill.find_by_uid(params[:id])
+    else
+      @recurring_bill = current_app.recurring_bills.find_by_uid(params[:id])
+    end
+
+
     if !@recurring_bill
       @errors[:id] = ["does not exist"]
       logger.error(@errors)
     end
-    
+
     logger.info("INSPECT: entity => #{@recurring_bill.to_json}")
   end
-  
+
   # POST /api/v1/account/bills
   # Expected attributes
   # => group_id - app_instance id
@@ -43,12 +48,12 @@ class Api::V1::Account::RecurringBillsController < Api::V1::BaseController
     whitelist = ['group_id','period','frequency','cycles','price_cents','description','currency','start_date','initial_cents']
     attributes = params.select { |k,v| whitelist.include?(k.to_s) }
     attributes.symbolize_keys!
-    
+
     logger.info("INSPECT: creation attributes => #{attributes}")
-    
+
     # Find Group
     group = current_app.groups.find_by_uid(attributes.delete(:group_id))
-    
+
     # Create bill
     if group
       attributes[:group_id] = group.id
@@ -57,7 +62,7 @@ class Api::V1::Account::RecurringBillsController < Api::V1::BaseController
     else
       @errors[:group_id] = ['does not exist or cannot be charged by your service']
     end
-    
+
     # Render
     if @errors.empty?
       @recurring_bill.setup!
@@ -68,18 +73,18 @@ class Api::V1::Account::RecurringBillsController < Api::V1::BaseController
       render template: 'api/v1/base/empty', status: :bad_request
     end
   end
-  
+
   # DELETE /api/v1/account/bills/bill-4s5d3
   def destroy
     @recurring_bill = current_app.recurring_bills.find_by_uid(params[:id])
-    
+
     if @recurring_bill
       @recurring_bill.cancel!
       @errors.merge!(@recurring_bill.errors.to_hash)
     else
       @errors[:id] = ["does not exist"]
     end
-    
+
     # Render
     if @errors.empty?
       logger.info("INSPECT: entity => #{@recurring_bill.to_json}")
