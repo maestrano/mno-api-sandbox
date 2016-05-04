@@ -25,6 +25,17 @@ MnoApiSandbox::Application.routes.draw do
 
   # API Routes
   namespace :api do
+    #reports endpoint
+    namespace :reports do
+      scope ':group_id' do
+        scope ':resource' do
+          match '', :controller => 'resources', :action => 'cors_preflight_check', :constraints => {:method => 'OPTIONS'}
+          resources '', as: :resource, controller: "resources", only: [:index]
+        end
+
+      end
+    end
+
     # OpenID Provider
     namespace :openid do
       resources :provider, only: [:show] do
